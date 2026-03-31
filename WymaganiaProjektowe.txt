@@ -1,0 +1,20 @@
+Projekt jest realizowany w grupach 2-4 osobowych.
+
+Projekt przygotowujemy w trakcie zajêæ (ewetualnie do dokoñczenia poza zajêciami). W ramach projektu nale¿y:
+1. Stworzyæ zespó³ projektowy sk³adaj¹cy siê z 2-4 osób.
+2. ZnaleŸæ w sieci lub w³asnych zasobach dane na interesuj¹cy grupê temat. Dane NIE mog¹ byæ generowane.
+3. Przygotowaæ pytania biznesowe, na które odpowiedzi pojawi¹ siê na raportach koñcowych.
+4. Przygotowaæ model wielowymiarowy, umo¿liwiaj¹cy udzielenie odpowiedzi na postawione pytania. 
+5. Postawiæ bazê hurtowni. 
+6. Wybraæ narzêdzie integracyjne (np. SSIS, Azure Data Factory, Apache Airflow, Apache NiFi itp.) i przygotowaæ procedury ETL ekstrahuj¹ce, integruj¹ce i ³aduj¹ce dane ze Ÿróde³ do hurtowni.
+7. Wybraæ narzêdzie do budowy warstwy sementycznej (np. SSAS, model Power BI itp.)
+8. Wybraæ narzêdzie raportowe (np. SSRS, Power BI, Tableau, Looker, Streamlit itp.) i przygotowaæ raporty.
+
+Punktacja koñcowa:
+1. Pytania biznesowe - oko³o 7-12 pytañ - 5 pkt (pod warunkeim realizacji)
+2. Schemat gwiazdy - 5 pkt
+3. ETL pocz¹tkowy - uruchomiony na ¿ywo - 20 pkt
+4. Warstwa semantyczna - 10 pkt
+5. Raporty pokazuj¹ce dane z wymagañ biznesowych zdefiniowanych w punkcie 1. W raportach maj¹ byæ elementy graficzne (wykresy) - 10pkt
+
+
