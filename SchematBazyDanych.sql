@@ -58,7 +58,9 @@ CREATE TABLE FACT_ECONOMY (
                               year_id int  NOT NULL,
                               gdp_per_capita decimal(14,2)  NULL,
                               gdp_growth_pct decimal(8,4)  NULL,
-                              internet_pct decimal(6,2)  NULL,
+                              internet_pct decimal(6,2)  NULL,           -- IT.NET.USER.ZS
+                              mobile_subscriptions_p100 decimal(8,2)  NULL,  -- IT.CEL.SETS.P2
+                              broadband_subscriptions_p100 decimal(8,2)  NULL, -- IT.NET.BBND.P2
                               urban_pct decimal(6,2)  NULL,
                               loaded_at datetime2  NOT NULL DEFAULT sysutcdatetime(),
                               CONSTRAINT PK_FACT_ECONOMY PRIMARY KEY  (iso3,year_id)
@@ -117,10 +119,12 @@ CREATE INDEX IX_FACT_MIL_year on FACT_MILITARY (year_id ASC)
 CREATE TABLE FACT_SOCIETY (
                               iso3 char(3)  NOT NULL,
                               year_id int  NOT NULL,
-                              tertiary_enrollment_pct decimal(6,2)  NULL,
+                              tertiary_enrollment_pct decimal(6,2)  NULL,  -- SE.TER.ENRR
+                              secondary_enrollment_pct decimal(6,2)  NULL, -- SE.SEC.ENRR (better coverage than tertiary)
                               literacy_rate_pct decimal(6,2)  NULL,
                               population_total bigint  NULL,
-                              refugees_total int  NULL,
+                              pop_working_age_pct decimal(6,2)  NULL,      -- SP.POP.1564.TO.ZS
+                              refugees_total int  NULL,                    -- SM.POP.RHCR.EA (replaces retired SM.POP.REFG)
                               CONSTRAINT PK_FACT_SOCIETY PRIMARY KEY  (iso3,year_id)
 );
 
