@@ -1,0 +1,273 @@
+﻿term_id;keyword;genre
+1;steam;
+2;online games;
+3;war game;war
+4;battlefield game;war
+5;online gaming;
+6;revolution game;political
+7;mobile game;mobile
+8;battle royale;battle_royale
+9;MOBA game;moba
+10;RPG game;rpg
+11;free to play;
+12;buy game steam;
+13;strategy game;strategy
+14;puzzle game;puzzle
+15;casual game;casual
+16;survival game;survival
+17;escape game;escape
+18;Call of Duty;fps|war
+19;papers please;strategy|simulation|puzzle|casual
+20;disco elysium;rpg
+21;CS2;fps|war|strategy|action
+22;valorant;fps
+23;Counter-Strike: Global Offensive;fps|war|strategy|action
+24;Apex Legends;fps|battle_royale|survival|horror|action
+25;PUBG: BATTLEGROUNDS;fps|battle_royale|strategy|simulation|survival|horror|casual|action
+26;Team Fortress 2;fps|action
+27;Call of Duty: Modern Warfare II;fps|war|action
+28;Grand Theft Auto V Legacy;fps|rpg|racing|action
+29;Left 4 Dead 2;fps|survival|horror|action
+30;Unturned;fps|survival|horror|casual|action
+31;War Thunder;fps|war|strategy|simulation|action
+32;HELLDIVERS 2;fps|action
+33;Warframe;fps|rpg|action
+34;Wallpaper Engine;fps|simulation|racing|survival|horror|casual|action
+35;Garry's Mod;fps|simulation|casual|action
+36;Destiny 2;fps|action
+37;Tom Clancy's Rainbow Six Siege;fps|war|strategy|simulation|horror|casual|action
+38;Rust;fps|simulation|survival|action
+39;World of Warships;fps|war|strategy|simulation|casual|action
+40;War Robots: Frontiers;fps|war|moba|simulation|action
+41;PAYDAY 2;fps|strategy|simulation|action
+42;Warface: Clutch;fps|war|rpg|strategy|simulation|action
+43;Grand Theft Auto IV: Complete Edition;fps|strategy|action
+44;Half-Life 2: Lost Coast;fps|action
+45;Borderlands 2;fps|rpg|action
+46;Paladins;fps|moba|strategy|survival|action
+47;Half-Life 2: Deathmatch;fps|puzzle|action
+48;Hearts of Iron IV;war|strategy|simulation|casual|action
+49;XCOM 2;war|rpg|strategy|horror|action
+50;Europa Universalis IV;war|strategy|simulation
+51;Company of Heroes 2;war|strategy|simulation|action
+52;Total War: THREE KINGDOMS;war|strategy|simulation|action
+53;Stellaris;war|strategy|simulation
+54;Total War: SHOGUN 2;war|strategy|action
+55;Sins of a Solar Empire: Rebellion;war|strategy|simulation|action
+56;Age of Empires III (2007);war|strategy|simulation|survival|action
+57;ARMORED CORE VI FIRES OF RUBICON;war|action
+58;KARDS - The WWII Card Game;war|strategy|casual
+59;Total War: EMPIRE – Definitive Edition;war|strategy|action
+60;Sabre Team;war|rpg|strategy|simulation
+61;Total War: NAPOLEON – Definitive Edition;war|strategy|simulation|action
+62;Company of Heroes: Opposing Fronts;war|strategy|simulation|action
+63;Age of Empires III: Definitive Edition;war|strategy|simulation
+64;Wargame: Red Dragon;war|strategy|simulation|action
+65;Total War: MEDIEVAL II – Definitive Edition;war|strategy|simulation|action
+66;Sid Meier's Civilization III Complete;war|strategy|simulation
+67;Victoria 3;war|strategy|simulation
+68;Fall Guys: Ultimate Knockout;battle_royale|sports|horror|platformer|casual|action
+69;NARAKA: BLADEPOINT;battle_royale|survival|action
+70;Eternal Return;battle_royale|moba|strategy|survival|horror|action
+71;Stumble Guys;battle_royale|racing|survival|casual|action
+72;Spellbreak;battle_royale|rpg|action
+73;Bombergrounds: Battle Royale;battle_royale|strategy|casual|action
+74;Shadow Arena;battle_royale|moba|rpg|strategy|action
+75;Skyforge;battle_royale|rpg|survival|action
+76;Immortal Soul: Black Survival;battle_royale|moba|rpg|strategy|survival|horror
+77;Home Sweet Home : Survive;battle_royale|strategy|survival|horror|action
+78;Brawlhalla;moba|survival|platformer|casual|action
+79;SMITE;moba|rpg|strategy|survival|casual|action
+80;Battlerite;moba|rpg|strategy|action
+81;Dungeon Defenders II;moba|rpg|strategy|survival|casual|action
+82;Awesomenauts;moba|strategy|platformer|casual|action
+83;NARUTO TO BORUTO: SHINOBI STRIKER;moba|rpg|strategy|action
+84;ArcheBlade;moba|rpg|action
+85;Dragons and Titans;moba|rpg|strategy|survival|action
+86;Panzar;moba|rpg|survival|horror|action
+87;Strife;moba|rpg|strategy|survival|horror|casual|action
+88;Palworld;rpg|survival|action
+89;New World: Aeternum;rpg|action
+90;Black Myth: Wukong;rpg|action
+91;Lost Ark;rpg|action
+92;Monster Hunter Wilds;rpg|action
+93;ELDEN RING;rpg|action
+94;Terraria;rpg|survival|platformer|action
+95;Path of Exile 2;rpg|horror|action
+96;Baldur's Gate 3;rpg|strategy
+97;Stardew Valley;rpg|simulation|horror|casual
+98;Path of Exile;rpg|horror|action
+99;Last Epoch;rpg|action
+100;Hogwarts Legacy;rpg|puzzle|action
+101;The Witcher 3: Wild Hunt;rpg|action
+102;Valheim;rpg|survival|action
+103;Monster Hunter: World;rpg|action
+104;Project Zomboid;rpg|simulation|survival
+105;7 Days to Die;rpg|strategy|simulation|survival|horror|action
+106;Sekiro: Shadows Die Twice - GOTY Edition;rpg|action
+107;Grim Dawn;rpg|action
+108;Cities: Skylines;rpg|strategy|simulation|horror|casual|action
+109;Trove;rpg|casual|action
+110;Warhammer 40,000: Rogue Trader;rpg|strategy|action
+111;Castle Crashers;rpg|casual|action
+112;MONSTER HUNTER RISE;rpg|action
+113;Vampire Survivors;rpg|casual|action
+114;Assassin’s Creed IV Black Flag;rpg|action
+115;Clicker Heroes;rpg|strategy|simulation|survival|horror|casual|action
+116;KurtzPel;rpg|action
+117;STAR WARS: The Old Republic;rpg|action
+118;FlatOut 2;strategy|simulation|racing|casual|action
+119;Pool 2D - Poolians;strategy|simulation|sports|casual
+120;Rock of Ages;strategy|simulation|racing|casual|action
+121;Cricket 22;strategy|simulation|sports|horror
+122;Zombie Bowl-o-Rama;strategy|sports|horror|casual
+123;Bomb Bowling 2;strategy|sports|puzzle
+124;Candy gun;strategy|puzzle|casual
+125;All-In-One Sports VR;strategy|simulation|sports|casual|action
+126;Salamander County Public Television;strategy|casual|action
+127;Bomb Bowling;strategy|puzzle|casual
+128;Rope Bowling;strategy|puzzle|casual|action
+129;VR SUPER SPORTS;strategy|simulation|sports|racing|casual|action
+130;IMPOSSIBALL;strategy|platformer
+131;Date Night Bowling;strategy|sports|casual
+132;Premium Bowling;strategy|simulation|sports
+133;Sphere Game Epic;strategy|racing|platformer|casual
+134;HyperBowl;strategy|sports|casual|action
+135;ShovelBear;strategy|action
+136;Fastlane Bowling;strategy|simulation|sports|casual
+137;The Edge Ball;strategy|simulation|platformer|casual
+138;Roxy Raccoon's Bowling Bash;strategy|simulation|sports|platformer|action
+139;Ball Boys;strategy|racing|platformer|casual|action
+140;Extrorb;strategy|sports|casual|action
+141;ImpossiBowl;strategy|sports|racing|platformer|casual|action
+142;RockaBowling VR;strategy|simulation|sports|casual
+143;The Sims 4;simulation|casual
+144;Human Fall Flat;simulation|survival|horror|puzzle|casual|action
+145;eFootball;simulation|sports
+146;Street Warriors Online;simulation|sports|action
+147;EA SPORTS FIFA 23;simulation|sports
+148;People Playground;simulation|horror|casual|action
+149;EA SPORTS FC 25;simulation|sports
+150;FIFA 22;simulation|sports
+151;TEKKEN 7;simulation|sports|casual|action
+152;Gang Beasts;simulation|casual|action
+153;ASTRONEER;simulation|survival
+154;Don't Starve;simulation|survival|horror|action
+155;Chained Together;simulation|platformer|casual
+156;Goat Simulator;simulation|casual|action
+157;Microsoft Flight Simulator (2020) 40th Anniversary Edition;simulation
+158;Rocket League;sports|racing|casual|action
+159;SpeedRunners;sports|racing|platformer|action
+160;Party Jousting;sports|casual
+161;Torque Drift;sports|racing
+162;Jet Set Radio;sports|platformer|action
+163;DJMAX RESPECT V;sports|casual|action
+164;Sonic & All-Stars Racing Transformed Collection;sports|racing|action
+165;Achievements printer;sports|casual|action
+166;Knockout City;sports|action
+167;Streamline;sports|action
+168;Among Us;survival|casual|action
+169;Life is Strange 2;survival|puzzle|action
+170;Resident Evil 4;survival|horror|action
+171;V Rising;survival|action
+172;INSIDE;survival|horror|puzzle|platformer|action
+173;Days Gone;survival|horror|action
+174;The Walking Dead;survival|horror|action
+175;Friday the 13th: The Game;survival|horror|action
+176;Iron Snout;survival|casual|action
+177;A Plague Tale: Innocence;survival|horror|puzzle|action
+178;Unrailed!;survival|casual|action
+179;Clone Drone in the Danger Zone;survival|action
+180;Super Hexagon;survival|horror|puzzle|casual|action
+181;Danganronpa: Trigger Happy Havoc;survival|horror|puzzle|action
+182;The Walking Dead: A New Frontier;survival|horror|casual|action
+183;MultiVersus;action
+184;Devil May Cry 5;action
+185;Saints Row IV: Re-Elected;action
+186;Skullgirls 2nd Encore;action
+187;METAL GEAR RISING: REVENGEANCE;action
+188;Assassin's Creed 2;action
+189;A Way Out;action
+190;Batman: Arkham City - Game of the Year Edition;action
+191;Heaven Forest NIGHTS;action
+192;NARUTO SHIPPUDEN: Ultimate Ninja STORM 4;action
+193;DRAGON BALL: Sparking! ZERO;action
+194;Life is Strange: Before the Storm;action
+195;Bayonetta;action
+196;Capcom Arcade Stadium;action
+197;Killer is Dead - Nightmare Edition;action
+198;Mortal Kombat Komplete Edition;action
+199;Capcom Arcade 2nd Stadium;action
+200;Deep Rock Galactic: Survivor;action
+201;Risk of Rain Returns;action
+202;Injustice 2;action
+203;Half-Life;fps|action
+204;Heroes & Generals;fps|war|strategy|simulation|action
+205;Red Dead Redemption 2;fps|action
+206;Battlefield 2042;fps|war|casual|action
+207;Halo Infinite;fps|action
+208;World of Tanks Blitz;fps|war|strategy|simulation|horror|action
+209;Counter-Strike;fps|war|strategy|survival|action
+210;Counter-Strike: Source;fps|war|strategy|simulation|survival|action
+211;Schedule I;fps|strategy|simulation|action
+212;Ring of Elysium;fps|battle_royale|moba|survival|action
+213;Black Squad;fps|war|strategy|action
+214;Dying Light;fps|rpg|survival|horror|action
+215;Counter-Strike: Condition Zero;fps|war|strategy|simulation|survival|horror|action
+216;Z1 Battle Royale;fps|battle_royale|survival|horror|action
+217;Hunt: Showdown 1896;fps|battle_royale|survival|horror|action
+218;CyberCorp;fps|rpg|action
+219;Half-Life 2;fps|horror|puzzle|action
+220;Arma 3;fps|war|strategy|simulation|action
+221;Fallout 4;fps|rpg|survival|casual|action
+222;Battlefield V;fps|war|battle_royale|action
+223;DayZ;fps|war|simulation|survival|horror|action
+224;Risk of Rain 2;fps|survival|action
+225;PlanetSide 2;fps|war|rpg|strategy|action
+226;No More Room in Hell;fps|survival|horror|action
+227;Tomb Raider Game of the Year;fps|rpg|puzzle|platformer|action
+228;Robocraft;fps|rpg|strategy|simulation|action
+229;War Robots;fps|war|rpg|strategy|action
+230;Deceit;fps|strategy|survival|horror|action
+231;Kathy Rain;fps|rpg|horror|puzzle|casual
+232;Deathmatch Classic;fps|action
+233;Call of Duty: Black Ops III;fps|simulation|action
+234;Dirty Bomb;fps|action
+235;Fallout: New Vegas;fps|rpg|survival|action
+236;SCP: Secret Laboratory;fps|rpg|strategy|simulation|survival|horror|action
+237;Call of Duty: Modern Warfare 2 (2009);fps|war|strategy|action
+238;ULTRAKILL;fps|action
+239;Dota Underlords;fps|battle_royale|moba|strategy|horror|casual|action
+240;Resident Evil 2;fps|survival|horror|puzzle|action
+241;Day of Defeat;fps|war|strategy|action
+242;DOOM;fps|horror|casual|action
+243;theHunter Classic;fps|strategy|simulation|sports|survival|casual|action
+244;Evolve Stage 2;fps|strategy|survival|casual|action
+245;BattleBit Remastered;fps|war|action
+246;Realm Royale;fps|battle_royale|rpg|survival|horror|action
+247;Total War: WARHAMMER II;fps|war|rpg|strategy|action
+248;Halo: The Master Chief Collection;fps|horror|action
+249;Z1 Battle Royale: Test Server;fps|battle_royale|survival|action
+250;Left 4 Dead;fps|survival|horror|action
+251;Half-Life 2: Episode One;fps|puzzle|action
+252;Half-Life Deathmatch: Source;fps|horror|action
+253;DOOM Eternal;fps|horror|action
+254;Cry of Fear;fps|survival|horror|action
+255;Splitgate: Arena Warfare;fps|strategy|action
+256;Half-Life 2: Episode Two;fps|horror|puzzle|action
+257;Deep Rock Galactic;fps|survival|horror|action
+258;Counter-Strike Nexon: Studio;fps|horror|action
+259;The Cycle: Frontier;fps|battle_royale|survival|action
+260;HITMAN 2;fps|strategy|puzzle|action
+261;Titanfall 2;fps|war|action
+262;Infestation: The New Z;fps|rpg|survival|horror|action
+263;theHunter: Call of the Wild;fps|strategy|simulation|sports|survival|action
+264;Tom Clancy’s The Division;fps|rpg|survival|action
+265;POSTAL 2;fps|action
+266;Grand Theft Auto V Enhanced;fps|racing|action
+267;Loadout;fps|casual|action
+268;Call of Duty 2;fps|war|strategy|simulation|casual|action
+269;Grand Theft Auto IV: The Complete Edition;fps|strategy|action
+270;Ready or Not;fps|horror|action
+271;APB Reloaded;fps|racing|action
+272;Just Cause 3;fps|rpg|action
