@@ -69,7 +69,7 @@ python fetch_google_trends.py
 
 **Wymaga** `stg_dim_search_term.csv` (krok 4).  
 Pobiera zainteresowanie globalnie per kraj per rok (2019–2023), normalizuje względem anchora `youtube`.  
-Czas: ~15 minut (~68 wywołań API × 10s opóźnienia — wzrosło po dodaniu ~250 gier).
+Czas: ~57 minut (340 calli × 10s delay).
 
 Wyjście: `iso2, year_id, term_id, keyword, interest_raw, interest_normalized, anchor_term`
 
