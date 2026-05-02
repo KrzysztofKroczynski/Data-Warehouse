@@ -1,11 +1,16 @@
 """
 Google Trends per-country extraction -> stg_google_trends.csv
-Target table: FACT_GOOGLE_TRENDS(iso2, year_id, term_id, interest_normalized, interest_raw, anchor_term)
+Target table: FACT_GOOGLE_TRENDS(iso2, year_id, term_id, entity_mid, interest_normalized, ...)
 
-Per-country, per-year strategy: avoids the global-query problem where non-dominant
-countries round to 0 due to GT global normalization.
+Per-country strategy: one call per (country, batch) covering all YEARS.
+GT returns monthly data normalized across the full YEARS range (peak over all years = 100).
+Results are grouped by year and summed.
 
-~50 x 7 x 5 = 1,750 total calls (~3h at 6s delay).
+Entity discovery: for each keyword, all GT entity variants (plain-text + entity mids)
+are fetched via suggestions API at startup and queried separately.
+
+~50 x N_BATCHES total calls (N_BATCHES depends on entity count; ~3 entities/keyword
+→ ~19 batches → ~950 calls, ~1.5h).
 Failed batches are NOT checkpointed — auto-retried on next run.
 """
 
@@ -29,10 +34,12 @@ OUTPUT_FILE      = "stg_google_trends.csv"
 CHECKPOINT_FILE  = "stg_google_trends_checkpoint.csv"
 ANCHOR_FILE      = "stg_youtube_anchor.csv"
 
-YEARS      = [2019, 2020, 2021, 2022, 2023]
-ANCHOR     = "youtube"
-BATCH_SIZE = 4    # GT allows 5 keywords max; 1 slot reserved for anchor
-CALL_DELAY = 6    # seconds
+YEARS            = [2019, 2020, 2021, 2022, 2023]
+ANCHOR           = "youtube"
+BATCH_SIZE          = 4    # GT allows 5 keywords max; 1 slot reserved for anchor
+CALL_DELAY          = 6    # seconds
+SUGGESTION_DELAY    = 2    # seconds between suggestions API calls
+NORMALIZATION_SCALE = 100  # multiplier applied to interest_normalized for readability
 
 COUNTRIES = [
     "US", "GB", "DE", "FR", "JP", "KR", "BR", "CA", "AU", "RU",
@@ -42,9 +49,11 @@ COUNTRIES = [
     "SG", "HK", "TW", "NZ", "PT", "GR", "IL", "AE", "IR", "PK",
 ]
 
-FIELDNAMES        = ["iso2", "year_id", "term_id", "keyword", "interest_raw",
-                     "interest_normalized", "anchor_term", "anchor_raw"]
-ANCHOR_FIELDNAMES = ["iso2", "year_id", "anchor_term", "interest_raw"]
+CHECKPOINT_FIELDNAMES = ["iso2", "year_id", "term_id", "keyword", "entity_mid", "entity_type",
+                         "interest_raw", "interest_normalized", "anchor_term", "anchor_raw"]
+OUTPUT_FIELDNAMES     = ["iso2", "year_id", "term_id", "keyword", "entity_type",
+                         "interest_raw", "interest_normalized", "anchor_term", "anchor_raw"]
+ANCHOR_FIELDNAMES     = ["iso2", "year_id", "anchor_term", "interest_raw"]
 
 
 def load_search_terms(path: str) -> list[dict]:
@@ -52,8 +61,47 @@ def load_search_terms(path: str) -> list[dict]:
         return list(csv.DictReader(f, delimiter=";"))
 
 
+def discover_entities(pytrends: TrendReq, terms: list[dict]) -> list[dict]:
+    """
+    For each search term, fetch all GT entity variants via suggestions API.
+    Always includes plain-text "Search term". Adds one entry per entity mid found.
+    Returns flat list: [{term_id, keyword, mid, entity_type, query_key}, ...]
+    query_key is the mid for entities, or the keyword itself for plain-text.
+    """
+    entities = []
+    for term in terms:
+        keyword = term["keyword"]
+        term_id = term["term_id"]
+
+        entities.append({
+            "term_id":     term_id,
+            "keyword":     keyword,
+            "mid":         "",
+            "entity_type": "Search term",
+            "query_key":   keyword,
+        })
+
+        try:
+            for s in pytrends.suggestions(keyword):
+                mid = s.get("mid", "")
+                if mid:
+                    entities.append({
+                        "term_id":     term_id,
+                        "keyword":     keyword,
+                        "mid":         mid,
+                        "entity_type": s.get("type", "Unknown"),
+                        "query_key":   mid,
+                    })
+        except Exception as exc:
+            print(f"  suggestions failed for '{keyword}': {exc}")
+
+        time.sleep(SUGGESTION_DELAY)
+
+    return entities
+
+
 def load_done_pairs(path: str) -> set[tuple]:
-    """Returns set of (iso2, year_id, term_id) already written to checkpoint.
+    """Returns set of (iso2, year_id, term_id, entity_mid) already written to checkpoint.
     Skips truncated last row caused by interrupted run."""
     if not Path(path).exists():
         return set()
@@ -61,25 +109,25 @@ def load_done_pairs(path: str) -> set[tuple]:
     with open(path, newline="", encoding="utf-8") as f:
         for row in csv.DictReader(f, delimiter=";"):
             try:
-                done.add((row["iso2"], row["year_id"], row["term_id"]))
+                done.add((row["iso2"], row["year_id"], row["term_id"], row["entity_mid"]))
             except KeyError:
                 pass
     return done
 
 
-def make_batches(terms: list[dict]) -> list[list[dict]]:
-    non_anchor = [t for t in terms if t["keyword"].lower() != ANCHOR]
+def make_batches(entities: list[dict]) -> list[list[dict]]:
+    non_anchor = [e for e in entities if e["keyword"].lower() != ANCHOR]
     return [non_anchor[i:i + BATCH_SIZE] for i in range(0, len(non_anchor), BATCH_SIZE)]
 
 
-def fetch_country_batch(pytrends: TrendReq, keywords: list[str], iso2: str, year: int) -> dict | None:
+def fetch_country_batch(pytrends: TrendReq, query_keys: list[str], iso2: str) -> dict[int, dict[str, float]] | None:
     """
-    Fetch weekly interest sums for ANCHOR + keywords in iso2 for the given year.
-    Per-year timeframe ensures GT normalizes within each year → matches manual GT downloads.
-    Returns {keyword: weekly_sum} or None after 3 failed attempts.
+    Fetch monthly interest for ANCHOR + query_keys in iso2 across all YEARS.
+    GT normalizes across the full YEARS range (peak over all years = 100).
+    Returns {year: {query_key: monthly_sum}} or None after 3 failed attempts.
     """
-    kw_list   = [ANCHOR] + keywords
-    timeframe = f"{year}-01-01 {year}-12-31"
+    kw_list   = [ANCHOR] + query_keys
+    timeframe = f"{YEARS[0]}-01-01 {YEARS[-1]}-12-31"
 
     for attempt in range(1, 4):
         try:
@@ -89,7 +137,13 @@ def fetch_country_batch(pytrends: TrendReq, keywords: list[str], iso2: str, year
                 return None
             if "isPartial" in df.columns:
                 df = df[~df["isPartial"].astype(bool)]
-            return {kw: round(float(df[kw].sum()), 4) for kw in kw_list if kw in df.columns}
+            return {
+                year: {
+                    kw: float(df.loc[df.index.year == year, kw].sum())
+                    for kw in kw_list if kw in df.columns
+                }
+                for year in YEARS
+            }
         except Exception as exc:
             wait = 60 * attempt
             print(f"    error: {exc} — retry {attempt}/3 in {wait}s")
@@ -105,10 +159,10 @@ def flush_checkpoint_to_output() -> tuple[int, int, int]:
         rows = list(csv.DictReader(f, delimiter=";"))
 
     rows = [r for r in rows if r["year_id"] != "year_id"]  # drop duplicate headers from resume runs
-    rows.sort(key=lambda r: (r["iso2"], int(r["year_id"]), r["term_id"]))
+    rows.sort(key=lambda r: (r["iso2"], int(r["year_id"]), r["term_id"], r["entity_mid"]))
 
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=FIELDNAMES, delimiter=";")
+        writer = csv.DictWriter(f, fieldnames=OUTPUT_FIELDNAMES, delimiter=";", extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -158,56 +212,65 @@ def main() -> None:
             print(f"ERROR: {SEARCH_TERM_FILE} not found — run fetch_steam_top_games.py first")
             sys.exit(1)
 
-        terms      = load_search_terms(SEARCH_TERM_FILE)
-        batches    = make_batches(terms)
+        terms    = load_search_terms(SEARCH_TERM_FILE)
+        pytrends = TrendReq(hl="en-US", tz=0, timeout=(10, 25))
+
+        print(f"Discovering entity variants for {len(terms)} keywords...")
+        entities = discover_entities(pytrends, terms)
+        print(f"  found {len(entities)} entity variants total")
+
+        batches    = make_batches(entities)
         done_pairs = load_done_pairs(CHECKPOINT_FILE)
 
         if done_pairs:
-            print(f"Resuming: {len(done_pairs)} (iso2, year, term_id) entries already done")
+            print(f"Resuming: {len(done_pairs)} (iso2, year, term_id, entity_mid) entries already done")
 
-        pytrends    = TrendReq(hl="en-US", tz=0, timeout=(10, 25))
-        total_calls = len(COUNTRIES) * len(batches) * len(YEARS)
+        total_calls = len(COUNTRIES) * len(batches)
         call_num    = 0
 
         with open(CHECKPOINT_FILE, "a", newline="", encoding="utf-8") as checkpoint_handle:
-            checkpoint_writer = csv.DictWriter(checkpoint_handle, fieldnames=FIELDNAMES, delimiter=";")
+            checkpoint_writer = csv.DictWriter(checkpoint_handle, fieldnames=CHECKPOINT_FIELDNAMES, delimiter=";")
             if not done_pairs:
                 checkpoint_writer.writeheader()
 
             for iso2 in COUNTRIES:
                 for batch_idx, batch in enumerate(batches):
-                    keywords = [t["keyword"] for t in batch]
-                    term_ids = [t["term_id"] for t in batch]
+                    query_keys = [e["query_key"] for e in batch]
+                    entity_ids = [(e["term_id"], e["mid"]) for e in batch]
+                    call_num  += 1
 
-                    for year in YEARS:
-                        call_num += 1
+                    if all(
+                        (iso2, str(year), tid, mid) in done_pairs
+                        for year in YEARS for tid, mid in entity_ids
+                    ):
+                        print(f"[{call_num}/{total_calls}] {iso2} batch={batch_idx} — skip")
+                        continue
 
-                        if all((iso2, str(year), tid) in done_pairs for tid in term_ids):
-                            print(f"[{call_num}/{total_calls}] {iso2} {year} batch={batch_idx} — skip")
-                            continue
+                    print(f"[{call_num}/{total_calls}] {iso2} query_keys={query_keys}")
 
-                        print(f"[{call_num}/{total_calls}] {iso2} {year} keywords={keywords}")
+                    data = fetch_country_batch(pytrends, query_keys, iso2)
 
-                        data = fetch_country_batch(pytrends, keywords, iso2, year)
+                    if data is None:
+                        print(f"    no data — skipping, will retry on re-run")
+                        time.sleep(CALL_DELAY)
+                        continue
 
-                        if data is None:
-                            print(f"    no data — skipping, will retry on re-run")
-                            time.sleep(CALL_DELAY)
-                            continue
+                    for year, year_data in data.items():
+                        anchor_val = year_data.get(ANCHOR, 0.0)
 
-                        anchor_val = data.get(ANCHOR, 0.0)
-
-                        for term in batch:
-                            key = (iso2, str(year), term["term_id"])
+                        for entity in batch:
+                            key = (iso2, str(year), entity["term_id"], entity["mid"])
                             if key in done_pairs:
                                 continue
-                            raw        = data.get(term["keyword"], 0.0)
-                            normalized = round(raw / anchor_val, 4) if anchor_val > 0 else None
+                            raw        = year_data.get(entity["query_key"], 0.0)
+                            normalized = raw / anchor_val * NORMALIZATION_SCALE if anchor_val > 0 else None
                             checkpoint_writer.writerow({
                                 "iso2":                iso2,
                                 "year_id":             year,
-                                "term_id":             term["term_id"],
-                                "keyword":             term["keyword"],
+                                "term_id":             entity["term_id"],
+                                "keyword":             entity["keyword"],
+                                "entity_mid":          entity["mid"],
+                                "entity_type":         entity["entity_type"],
                                 "interest_raw":        raw,
                                 "interest_normalized": normalized if normalized is not None else "",
                                 "anchor_term":         ANCHOR,
@@ -215,8 +278,8 @@ def main() -> None:
                             })
                             done_pairs.add(key)
 
-                        checkpoint_handle.flush()
-                        time.sleep(CALL_DELAY)
+                    checkpoint_handle.flush()
+                    time.sleep(CALL_DELAY)
 
         print("\nAll batches done. Writing output files...")
         total, non_null, null_count = flush_checkpoint_to_output()
