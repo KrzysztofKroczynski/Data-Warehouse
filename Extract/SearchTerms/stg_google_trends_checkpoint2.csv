@@ -5306,3 +5306,64 @@ TW;2023;31;War Thunder;0.0;0.0;youtube;4611.0
 TW;2023;33;Warframe;61.0;0.0132;youtube;4611.0
 TW;2023;36;Destiny 2;0.0;0.0;youtube;4611.0
 TW;2023;38;Rust;53.0;0.0115;youtube;4611.0
+iso2;year_id;term_id;keyword;entity_mid;entity_type;interest_raw;interest_normalized;anchor_term;anchor_raw
+US;2019;18;Call of Duty;;Search term;82.0;1.9435885280872245;youtube;4219.0
+US;2019;18;Call of Duty;/m/026wy8d;Video game series;117.0;2.773168997392747;youtube;4219.0
+US;2019;18;Call of Duty;/g/11h7g3df61;2019 video game;77.0;1.82507703247215;youtube;4219.0
+US;2019;18;Call of Duty;/g/11h1m5lgf7;Video game;7.0;0.16591609386110454;youtube;4219.0
+US;2020;18;Call of Duty;;Search term;121.0;2.877526753864447;youtube;4205.0
+US;2020;18;Call of Duty;/m/026wy8d;Video game series;241.0;5.73127229488704;youtube;4205.0
+US;2020;18;Call of Duty;/g/11h7g3df61;2019 video game;124.0;2.948870392390012;youtube;4205.0
+US;2020;18;Call of Duty;/g/11h1m5lgf7;Video game;0.0;0.0;youtube;4205.0
+US;2021;18;Call of Duty;;Search term;75.0;2.027027027027027;youtube;3700.0
+US;2021;18;Call of Duty;/m/026wy8d;Video game series;163.0;4.405405405405405;youtube;3700.0
+US;2021;18;Call of Duty;/g/11h7g3df61;2019 video game;35.0;0.945945945945946;youtube;3700.0
+US;2021;18;Call of Duty;/g/11h1m5lgf7;Video game;0.0;0.0;youtube;3700.0
+US;2022;18;Call of Duty;;Search term;73.0;1.8360160965794767;youtube;3976.0
+US;2022;18;Call of Duty;/m/026wy8d;Video game series;148.0;3.722334004024145;youtube;3976.0
+US;2022;18;Call of Duty;/g/11h7g3df61;2019 video game;10.0;0.2515090543259557;youtube;3976.0
+US;2022;18;Call of Duty;/g/11h1m5lgf7;Video game;0.0;0.0;youtube;3976.0
+US;2023;18;Call of Duty;;Search term;70.0;1.7144256674014207;youtube;4083.0
+US;2023;18;Call of Duty;/m/026wy8d;Video game series;150.0;3.673769287288758;youtube;4083.0
+US;2023;18;Call of Duty;/g/11h7g3df61;2019 video game;0.0;0.0;youtube;4083.0
+US;2023;18;Call of Duty;/g/11h1m5lgf7;Video game;0.0;0.0;youtube;4083.0
+US;2019;18;Call of Duty;/g/11ks3vb8y9;2023 video game;0.0;0.0;youtube;4220.0
+US;2019;18;Call of Duty;/g/11y4yk7hk5;Video game;0.0;0.0;youtube;4220.0
+US;2019;23;Counter-Strike: Global Offensive;;Search term;0.0;0.0;youtube;4220.0
+US;2019;23;Counter-Strike: Global Offensive;/m/0h3pv2z;Video game;41.0;0.971563981042654;youtube;4220.0
+US;2020;18;Call of Duty;/g/11ks3vb8y9;2023 video game;0.0;0.0;youtube;4207.0
+US;2020;18;Call of Duty;/g/11y4yk7hk5;Video game;0.0;0.0;youtube;4207.0
+US;2020;23;Counter-Strike: Global Offensive;;Search term;0.0;0.0;youtube;4207.0
+US;2020;23;Counter-Strike: Global Offensive;/m/0h3pv2z;Video game;52.0;1.2360351794628002;youtube;4207.0
+US;2021;18;Call of Duty;/g/11ks3vb8y9;2023 video game;0.0;0.0;youtube;3701.0
+US;2021;18;Call of Duty;/g/11y4yk7hk5;Video game;0.0;0.0;youtube;3701.0
+US;2021;23;Counter-Strike: Global Offensive;;Search term;0.0;0.0;youtube;3701.0
+US;2021;23;Counter-Strike: Global Offensive;/m/0h3pv2z;Video game;28.0;0.7565522831667117;youtube;3701.0
+US;2022;18;Call of Duty;/g/11ks3vb8y9;2023 video game;0.0;0.0;youtube;3976.0
+US;2022;18;Call of Duty;/g/11y4yk7hk5;Video game;0.0;0.0;youtube;3976.0
+US;2022;23;Counter-Strike: Global Offensive;;Search term;0.0;0.0;youtube;3976.0
+US;2022;23;Counter-Strike: Global Offensive;/m/0h3pv2z;Video game;42.0;1.056338028169014;youtube;3976.0
+US;2023;18;Call of Duty;/g/11ks3vb8y9;2023 video game;3.0;0.07347538574577515;youtube;4083.0
+US;2023;18;Call of Duty;/g/11y4yk7hk5;Video game;0.0;0.0;youtube;4083.0
+US;2023;23;Counter-Strike: Global Offensive;;Search term;0.0;0.0;youtube;4083.0
+US;2023;23;Counter-Strike: Global Offensive;/m/0h3pv2z;Video game;51.0;1.2490815576781777;youtube;4083.0
+US;2019;23;Counter-Strike: Global Offensive;/g/11tx9lh0mg;Video game;0.0;0.0;youtube;4220.0
+US;2019;23;Counter-Strike: Global Offensive;/g/11v5w0vwxv;Video game;0.0;0.0;youtube;4220.0
+US;2019;23;Counter-Strike: Global Offensive;/g/11b70gg82r;Topic;0.0;0.0;youtube;4220.0
+US;2019;23;Counter-Strike: Global Offensive;/g/11bwy_5hzh;Tournament;0.0;0.0;youtube;4220.0
+US;2020;23;Counter-Strike: Global Offensive;/g/11tx9lh0mg;Video game;0.0;0.0;youtube;4207.0
+US;2020;23;Counter-Strike: Global Offensive;/g/11v5w0vwxv;Video game;0.0;0.0;youtube;4207.0
+US;2020;23;Counter-Strike: Global Offensive;/g/11b70gg82r;Topic;0.0;0.0;youtube;4207.0
+US;2020;23;Counter-Strike: Global Offensive;/g/11bwy_5hzh;Tournament;0.0;0.0;youtube;4207.0
+US;2021;23;Counter-Strike: Global Offensive;/g/11tx9lh0mg;Video game;0.0;0.0;youtube;3701.0
+US;2021;23;Counter-Strike: Global Offensive;/g/11v5w0vwxv;Video game;0.0;0.0;youtube;3701.0
+US;2021;23;Counter-Strike: Global Offensive;/g/11b70gg82r;Topic;0.0;0.0;youtube;3701.0
+US;2021;23;Counter-Strike: Global Offensive;/g/11bwy_5hzh;Tournament;0.0;0.0;youtube;3701.0
+US;2022;23;Counter-Strike: Global Offensive;/g/11tx9lh0mg;Video game;0.0;0.0;youtube;3976.0
+US;2022;23;Counter-Strike: Global Offensive;/g/11v5w0vwxv;Video game;0.0;0.0;youtube;3976.0
+US;2022;23;Counter-Strike: Global Offensive;/g/11b70gg82r;Topic;0.0;0.0;youtube;3976.0
+US;2022;23;Counter-Strike: Global Offensive;/g/11bwy_5hzh;Tournament;0.0;0.0;youtube;3976.0
+US;2023;23;Counter-Strike: Global Offensive;/g/11tx9lh0mg;Video game;9.0;0.2204261572373255;youtube;4083.0
+US;2023;23;Counter-Strike: Global Offensive;/g/11v5w0vwxv;Video game;0.0;0.0;youtube;4083.0
+US;2023;23;Counter-Strike: Global Offensive;/g/11b70gg82r;Topic;0.0;0.0;youtube;4083.0
+US;2023;23;Counter-Strike: Global Offensive;/g/11bwy_5hzh;Tournament;0.0;0.0;youtube;4083.0

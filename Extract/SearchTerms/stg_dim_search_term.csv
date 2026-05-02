@@ -1,21 +1,21 @@
 term_id;keyword;genre
 18;Call of Duty;fps|war
 21;CS2;fps|war|strategy|action
-22;valorant;fps
+22;Valorant;fps
 23;Counter-Strike: Global Offensive;fps|war|strategy|action
 24;Apex Legends;fps|battle_royale|survival|action
 25;PUBG: BATTLEGROUNDS;fps|battle_royale|survival|action
 26;Team Fortress 2;fps|action
-28;Grand Theft Auto V Legacy;fps|rpg|racing|action
+28;Grand Theft Auto V;fps|rpg|racing|action
 31;War Thunder;fps|war|strategy|simulation|action
 33;Warframe;fps|rpg|action
 36;Destiny 2;fps|action
 38;Rust;fps|simulation|survival|action
 48;Hearts of Iron IV;war|strategy|simulation|action
-88;Palworld;rpg|survival|action
-90;Black Myth: Wukong;rpg|action
-92;Monster Hunter Wilds;rpg|action
-93;ELDEN RING;rpg|action
+88;Genshin Impact;rpg|action|casual
+90;Far Cry;fps|action
+92;Monster Hunter World;rpg|action
+93;Elden Ring;rpg|action
 96;Baldur's Gate 3;rpg|strategy
 97;Stardew Valley;rpg|simulation|casual
 100;Hogwarts Legacy;rpg|puzzle|action
@@ -24,3 +24,28 @@ term_id;keyword;genre
 170;Resident Evil 4;survival|horror|action
 206;Battlefield 2042;fps|war|action
 257;Deep Rock Galactic;fps|survival|horror|action
+300;Minecraft;sandbox|casual
+301;Roblox;casual|simulation
+302;Fortnite;fps|battle_royale|casual
+303;League of Legends;strategy|action
+304;Dota 2;strategy|action
+305;FIFA;sports
+306;Rocket League;sports|casual
+307;World of Tanks;war|strategy|simulation
+308;Arma 3;fps|war|simulation
+309;Rainbow Six Siege;fps|action|strategy
+310;Civilization VI;strategy|simulation
+311;Crusader Kings III;strategy|rpg|simulation
+312;Cyberpunk 2077;rpg|action
+313;This War of Mine;survival|simulation
+314;Disco Elysium;rpg
+315;Victoria 3;strategy|simulation
+316;Age of Empires IV;strategy|war
+317;Phasmophobia;horror|casual
+318;Red Dead Redemption 2;action|rpg
+319;Terraria;survival|casual|simulation
+320;Hades;rpg|action
+321;Wolfenstein;fps|action
+322;Watch Dogs: Legion;action|rpg
+323;Tropico 6;strategy|simulation
+324;Assassin's Creed;action|rpg

@@ -30,28 +30,22 @@ _keep_awake  = lambda: ctypes.windll.kernel32.SetThreadExecutionState(_ES_CONTIN
 _allow_sleep = lambda: ctypes.windll.kernel32.SetThreadExecutionState(_ES_CONTINUOUS)
 
 SEARCH_TERM_FILE = "stg_dim_search_term.csv"
+COUNTRY_DIM_FILE = "stg_dim_country.csv"
 OUTPUT_FILE      = "stg_google_trends.csv"
 CHECKPOINT_FILE  = "stg_google_trends_checkpoint.csv"
 ANCHOR_FILE      = "stg_youtube_anchor.csv"
 
 YEARS            = [2019, 2020, 2021, 2022, 2023]
-ANCHOR           = "youtube"
+ANCHOR           = "amazon"
 BATCH_SIZE          = 4    # GT allows 5 keywords max; 1 slot reserved for anchor
 CALL_DELAY          = 6    # seconds
-SUGGESTION_DELAY    = 2    # seconds between suggestions API calls
+SUGGESTION_DELAY    = 10   # seconds between suggestions API calls
 NORMALIZATION_SCALE = 100  # multiplier applied to interest_normalized for readability
 
-COUNTRIES = [
-    "US", "GB", "DE", "FR", "JP", "KR", "BR", "CA", "AU", "RU",
-    "IN", "MX", "IT", "ES", "PL", "NL", "SE", "NO", "DK", "FI",
-    "BE", "AT", "CH", "CZ", "HU", "RO", "UA", "TR", "SA", "ZA",
-    "EG", "NG", "AR", "CL", "CO", "ID", "PH", "TH", "VN", "MY",
-    "SG", "HK", "TW", "NZ", "PT", "GR", "IL", "AE", "IR", "PK",
-]
 
 CHECKPOINT_FIELDNAMES = ["iso2", "year_id", "term_id", "keyword", "entity_mid", "entity_type",
                          "interest_raw", "interest_normalized", "anchor_term", "anchor_raw"]
-OUTPUT_FIELDNAMES     = ["iso2", "year_id", "term_id", "keyword", "entity_type",
+OUTPUT_FIELDNAMES     = ["iso2", "year_id", "term_id", "keyword",
                          "interest_raw", "interest_normalized", "anchor_term", "anchor_raw"]
 ANCHOR_FIELDNAMES     = ["iso2", "year_id", "anchor_term", "interest_raw"]
 
@@ -59,6 +53,11 @@ ANCHOR_FIELDNAMES     = ["iso2", "year_id", "anchor_term", "interest_raw"]
 def load_search_terms(path: str) -> list[dict]:
     with open(path, newline="", encoding="utf-8-sig") as f:
         return list(csv.DictReader(f, delimiter=";"))
+
+
+def load_countries(path: str) -> list[str]:
+    with open(path, newline="", encoding="utf-8-sig") as f:
+        return [row["iso2"] for row in csv.DictReader(f) if row.get("iso2")]
 
 
 def discover_entities(pytrends: TrendReq, terms: list[dict]) -> list[dict]:
@@ -81,19 +80,24 @@ def discover_entities(pytrends: TrendReq, terms: list[dict]) -> list[dict]:
             "query_key":   keyword,
         })
 
-        try:
-            for s in pytrends.suggestions(keyword):
-                mid = s.get("mid", "")
-                if mid:
-                    entities.append({
-                        "term_id":     term_id,
-                        "keyword":     keyword,
-                        "mid":         mid,
-                        "entity_type": s.get("type", "Unknown"),
-                        "query_key":   mid,
-                    })
-        except Exception as exc:
-            print(f"  suggestions failed for '{keyword}': {exc}")
+        for attempt in range(1, 4):
+            try:
+                for s in pytrends.suggestions(keyword):
+                    mid       = s.get("mid", "")
+                    ent_type  = s.get("type", "")
+                    if mid and ent_type in BEST_ENTITY_TYPES:
+                        entities.append({
+                            "term_id":     term_id,
+                            "keyword":     keyword,
+                            "mid":         mid,
+                            "entity_type": ent_type,
+                            "query_key":   mid,
+                        })
+                break
+            except Exception as exc:
+                wait = 60 * attempt
+                print(f"  suggestions failed for '{keyword}': {exc} — retry {attempt}/3 in {wait}s")
+                time.sleep(wait)
 
         time.sleep(SUGGESTION_DELAY)
 
@@ -153,6 +157,38 @@ def fetch_country_batch(pytrends: TrendReq, query_keys: list[str], iso2: str) ->
     return None
 
 
+BEST_ENTITY_TYPES = {"Search term", "Video game", "Video game series"}
+
+
+def _compute_best_rows(rows: list[dict]) -> list[dict]:
+    """
+    For each (iso2, year_id, term_id), take MAX interest_normalized among BEST_ENTITY_TYPES.
+    Since discover_entities already filters to these types, this just picks the winner per term.
+    """
+    best: dict[tuple, dict] = {}
+
+    for row in rows:
+        if row["interest_normalized"] == "":
+            continue
+        key = (row["iso2"], row["year_id"], row["term_id"])
+        if key not in best or float(row["interest_normalized"]) > float(best[key]["interest_normalized"]):
+            best[key] = row
+
+    return [
+        {
+            "iso2":                row["iso2"],
+            "year_id":             row["year_id"],
+            "term_id":             row["term_id"],
+            "keyword":             row["keyword"],
+            "interest_raw":        row["interest_raw"],
+            "interest_normalized": row["interest_normalized"],
+            "anchor_term":         ANCHOR,
+            "anchor_raw":          row["anchor_raw"],
+        }
+        for row in best.values()
+    ]
+
+
 def flush_checkpoint_to_output() -> tuple[int, int, int]:
     """Sort checkpoint and write OUTPUT_FILE + ANCHOR_FILE. Returns (total, non_null, null_count)."""
     with open(CHECKPOINT_FILE, newline="", encoding="utf-8") as f:
@@ -161,10 +197,13 @@ def flush_checkpoint_to_output() -> tuple[int, int, int]:
     rows = [r for r in rows if r["year_id"] != "year_id"]  # drop duplicate headers from resume runs
     rows.sort(key=lambda r: (r["iso2"], int(r["year_id"]), r["term_id"], r["entity_mid"]))
 
+    output_rows = _compute_best_rows(rows)
+    output_rows.sort(key=lambda r: (r["iso2"], int(r["year_id"]), r["term_id"]))
+
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=OUTPUT_FIELDNAMES, delimiter=";", extrasaction="ignore")
+        writer = csv.DictWriter(f, fieldnames=OUTPUT_FIELDNAMES, delimiter=";")
         writer.writeheader()
-        writer.writerows(rows)
+        writer.writerows(output_rows)
 
     seen: set[tuple] = set()
     anchor_rows: list[dict] = []
@@ -211,9 +250,14 @@ def main() -> None:
         if not Path(SEARCH_TERM_FILE).exists():
             print(f"ERROR: {SEARCH_TERM_FILE} not found — run fetch_steam_top_games.py first")
             sys.exit(1)
+        if not Path(COUNTRY_DIM_FILE).exists():
+            print(f"ERROR: {COUNTRY_DIM_FILE} not found — run fetch_country_dim.py first")
+            sys.exit(1)
 
-        terms    = load_search_terms(SEARCH_TERM_FILE)
-        pytrends = TrendReq(hl="en-US", tz=0, timeout=(10, 25))
+        terms     = load_search_terms(SEARCH_TERM_FILE)
+        countries = load_countries(COUNTRY_DIM_FILE)
+        pytrends  = TrendReq(hl="en-US", tz=0, timeout=(10, 25))
+        print(f"Loaded {len(countries)} countries from {COUNTRY_DIM_FILE}")
 
         print(f"Discovering entity variants for {len(terms)} keywords...")
         entities = discover_entities(pytrends, terms)
@@ -225,7 +269,7 @@ def main() -> None:
         if done_pairs:
             print(f"Resuming: {len(done_pairs)} (iso2, year, term_id, entity_mid) entries already done")
 
-        total_calls = len(COUNTRIES) * len(batches)
+        total_calls = len(countries) * len(batches)
         call_num    = 0
 
         with open(CHECKPOINT_FILE, "a", newline="", encoding="utf-8") as checkpoint_handle:
@@ -233,7 +277,7 @@ def main() -> None:
             if not done_pairs:
                 checkpoint_writer.writeheader()
 
-            for iso2 in COUNTRIES:
+            for iso2 in countries:
                 for batch_idx, batch in enumerate(batches):
                     query_keys = [e["query_key"] for e in batch]
                     entity_ids = [(e["term_id"], e["mid"]) for e in batch]
