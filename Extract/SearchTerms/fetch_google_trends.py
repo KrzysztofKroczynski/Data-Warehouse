@@ -149,6 +149,9 @@ def fetch_country_batch(pytrends: TrendReq, query_keys: list[str], iso2: str) ->
                 for year in YEARS
             }
         except Exception as exc:
+            if "400" in str(exc):
+                print(f"    error 400 — invalid geo '{iso2}' or query, skipping permanently")
+                return None
             wait = 60 * attempt
             print(f"    error: {exc} — retry {attempt}/3 in {wait}s")
             time.sleep(wait)
@@ -327,7 +330,10 @@ def main() -> None:
 
         print("\nAll batches done. Writing output files...")
         total, non_null, null_count = flush_checkpoint_to_output()
-        os.remove(CHECKPOINT_FILE)
+        finished_at = time.strftime("%Y%m%d_%H%M%S")
+        archived = CHECKPOINT_FILE.replace(".csv", f"_{finished_at}.csv")
+        os.rename(CHECKPOINT_FILE, archived)
+        print(f"Checkpoint archived -> {archived}")
 
         print(f"Done -> {OUTPUT_FILE}")
         print(f"  rows: {total:,}  |  normalized: {non_null:,}  |  null (anchor=0): {null_count:,}")
