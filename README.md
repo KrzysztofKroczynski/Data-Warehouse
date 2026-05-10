@@ -35,7 +35,7 @@ Purpose:
 1. Creates database DataWarehouse if missing.
 2. Validates core tables from SchematBazyDanych.sql.
 3. Creates technical stage table STG_GOOGLE_TRENDS if missing.
-4. Upserts DIM_TIME for years 2014-2023.
+4. Upserts DIM_TIME for years 2019-2023.
 5. Prints validation counts.
 
 When to run:
@@ -50,7 +50,7 @@ When to run:
 5. Confirm row counts from validation output are visible.
 
 Expected result after Script B:
-1. DIM_TIME has 10 rows (2014-2023).
+1. DIM_TIME has 5 rows (2019-2023).
 2. STG_GOOGLE_TRENDS exists.
 3. Other tables may still have 0 rows until SSIS loads are built and executed.
 
@@ -124,7 +124,7 @@ Tasks:
    - archive folder path
 2. Build DW_00_Prepare:
    - validate files
-   - load DIM_TIME (2014-2023, half='FY')
+   - load DIM_TIME (2019-2023, half='FY')
 3. Build DW_10_LoadDimensions:
    - load DIM_COUNTRY
    - load DIM_SEARCH_TERM
@@ -181,7 +181,7 @@ Checks to implement:
 3. Freshness checks:
    - loaded_at from latest run
 4. Completeness checks:
-   - 2014-2023 present for conflict and indicators
+   - 2019-2023 present for conflict and indicators
    - 2019-2023 present for trends
 5. Null and outlier checks:
    - high null share by indicator

@@ -4,7 +4,7 @@ What this script does:
 1) Creates database DataWarehouse if it does not exist.
 2) Checks that core tables from SchematBazyDanych.sql already exist.
 3) Creates STG_GOOGLE_TRENDS if missing.
-4) Fills DIM_TIME for years 2014-2023 with half='FY' (upsert).
+4) Fills DIM_TIME for years 2019-2023 with half='FY' (upsert).
 5) Runs quick validation queries.
 
 Important:
@@ -82,11 +82,16 @@ BEGIN
     PRINT 'Table dbo.STG_GOOGLE_TRENDS already exists.';
 END
 
-PRINT 'Upserting DIM_TIME for years 2014-2023...';
+PRINT 'Keeping DIM_TIME only for years 2019-2023...';
+
+DELETE FROM dbo.DIM_TIME
+WHERE year_id < 2019 OR year_id > 2023;
+
+PRINT 'Upserting DIM_TIME for years 2019-2023...';
 
 ;WITH y AS
 (
-    SELECT 2014 AS year_id
+    SELECT 2019 AS year_id
     UNION ALL
     SELECT year_id + 1
     FROM y
