@@ -51,7 +51,6 @@ CREATE TABLE DIM_SEARCH_TERM (
 CREATE TABLE DIM_TIME (
     year_id int  NOT NULL,
     year smallint  NOT NULL,
-    CONSTRAINT CK_DIM_TIME_half CHECK (( ( half IN ( 'H1' , 'H2' , 'FY' ) ) )),
     CONSTRAINT PK_DIM_TIME PRIMARY KEY  (year_id)
 );
 

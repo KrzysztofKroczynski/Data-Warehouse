@@ -71,6 +71,9 @@ If you get "object already exists":
 Schema source: SchematBazyDanych.sql
 
 Dimensions:
+- DIM_ANCHOR_TERM
+- DIM_CONFLICT_SOURCE
+- DIM_CONFLICT_TYPE
 - DIM_COUNTRY
 - DIM_TIME
 - DIM_SEARCH_TERM
@@ -85,7 +88,7 @@ Facts:
 
 Staging:
 - STG_WB_INDICATOR
-- STG_GOOGLE_TRENDS (to be added as technical stage)
+- STG_GOOGLE_TRENDS (technical stage created by bootstrap script)
 
 ## 5. Full Delivery Roadmap
 
@@ -96,8 +99,12 @@ Tasks:
 1. Create SQL Server database for DWH.
 2. Apply schema from SchematBazyDanych.sql.
 3. Add technical table STG_GOOGLE_TRENDS.
-4. Create folder convention for input, archive, rejects, and logs.
-5. Define naming convention for SSIS packages and SQL objects.
+4. Seed static dimensions used by facts:
+   - DIM_CONFLICT_TYPE
+   - DIM_CONFLICT_SOURCE
+   - DIM_ANCHOR_TERM
+5. Create folder convention for input, archive, rejects, and logs.
+6. Define naming convention for SSIS packages and SQL objects.
 
 Deliverables:
 - database created and script applied
@@ -124,18 +131,19 @@ Tasks:
    - archive folder path
 2. Build DW_00_Prepare:
    - validate files
-   - load DIM_TIME (2019-2023, half='FY')
+   - load DIM_TIME (2019-2023)
 3. Build DW_10_LoadDimensions:
    - load DIM_COUNTRY
    - load DIM_SEARCH_TERM
+   - load/seed DIM_CONFLICT_TYPE, DIM_CONFLICT_SOURCE, DIM_ANCHOR_TERM
    - deduplicate and key checks
 4. Build DW_20_LoadIndicatorsAndFacts:
    - load STG_WB_INDICATOR
-   - load FACT_CONFLICT
+   - load FACT_CONFLICT with conflict_type_id and conflict_source_id mapping
    - transform STG_WB_INDICATOR into FACT_ECONOMY, FACT_GOVERNANCE, FACT_MILITARY, FACT_SOCIETY
 5. Build DW_30_LoadGoogleTrends:
    - load STG_GOOGLE_TRENDS
-   - key validation against DIM_COUNTRY and DIM_SEARCH_TERM
+   - key validation against DIM_COUNTRY, DIM_SEARCH_TERM, DIM_ANCHOR_TERM
    - merge into FACT_GOOGLE_TRENDS
 
 Deliverables:
