@@ -4,7 +4,7 @@ What this script does:
 1) Creates database DataWarehouse if it does not exist.
 2) Checks that core tables from SchematBazyDanych.sql already exist.
 3) Creates STG_GOOGLE_TRENDS if missing.
-4) Fills DIM_TIME for years 2019-2023 with half='FY' (upsert).
+4) Fills DIM_TIME for years 2019-2023 (upsert).
 5) Runs quick validation queries.
 
 Important:
@@ -54,6 +54,12 @@ BEGIN
     RETURN;
 END
 
+IF OBJECT_ID(N'dbo.FACT_GOOGLE_TRENDS', N'U') IS NULL
+BEGIN
+    RAISERROR('Missing table dbo.FACT_GOOGLE_TRENDS. Run SchematBazyDanych.sql first.', 16, 1);
+    RETURN;
+END
+
 PRINT 'Core tables found.';
 
 IF OBJECT_ID(N'dbo.STG_GOOGLE_TRENDS', N'U') IS NULL
@@ -69,6 +75,7 @@ BEGIN
         interest_raw        int             NULL,
         interest_normalized decimal(14,6)   NULL,
         anchor_term         nvarchar(50)    NULL,
+        anchor_term_id      int             NULL,
         anchor_raw          int             NULL,
         loaded_at           datetime2       NOT NULL CONSTRAINT DF_STG_GT_loaded_at DEFAULT sysutcdatetime(),
         CONSTRAINT PK_STG_GOOGLE_TRENDS PRIMARY KEY (iso2, year_id, term_id)
@@ -89,26 +96,22 @@ WHERE year_id < 2019 OR year_id > 2023;
 
 PRINT 'Upserting DIM_TIME for years 2019-2023...';
 
-;WITH y AS
-(
-    SELECT 2019 AS year_id
-    UNION ALL
-    SELECT year_id + 1
-    FROM y
-    WHERE year_id < 2023
-)
+DECLARE @years TABLE (year_id int NOT NULL PRIMARY KEY);
+INSERT INTO @years (year_id)
+VALUES (2019), (2020), (2021), (2022), (2023);
+
 MERGE dbo.DIM_TIME AS tgt
 USING
 (
-    SELECT year_id, CAST(year_id AS smallint) AS [year], CAST('FY' AS char(2)) AS half
-    FROM y
+    SELECT year_id, CAST(year_id AS smallint) AS [year]
+    FROM @years
 ) AS src
 ON tgt.year_id = src.year_id
 WHEN MATCHED THEN
-    UPDATE SET tgt.[year] = src.[year], tgt.half = src.half
+    UPDATE SET tgt.[year] = src.[year]
 WHEN NOT MATCHED BY TARGET THEN
-    INSERT (year_id, [year], half)
-    VALUES (src.year_id, src.[year], src.half)
+    INSERT (year_id, [year])
+    VALUES (src.year_id, src.[year])
 ;
 
 PRINT 'Validation summary:';
