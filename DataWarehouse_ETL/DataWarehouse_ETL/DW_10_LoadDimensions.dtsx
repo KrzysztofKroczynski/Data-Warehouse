@@ -1,0 +1,1453 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/10/2026 11:29:17 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DANIL"
+  DTS:CreatorName="DANIL\Danil"
+  DTS:DTSID="{E5678721-1ABD-4256-B13D-C33DFB03E723}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="DW_10_LoadDimensions"
+  DTS:PackageType="5"
+  DTS:VersionBuild="27"
+  DTS:VersionGUID="{90AC0749-0319-4E23-A0D9-3DC722A24C98}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_DIM_COUNTRY]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{D5746002-92B3-40C2-A9BD-C0D9F4D1732D}"
+      DTS:ObjectName="FF_DIM_COUNTRY">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="8192"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="D:\Data-Warehouse\Extract\SearchTerms\stg_dim_country.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="3"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="iso3"
+              DTS:DTSID="{8FC5AA10-C533-425B-B224-C69041F55B1B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="iso2"
+              DTS:DTSID="{431FEB7A-CEB9-43AD-A3D6-24623BBA2C8D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="name"
+              DTS:DTSID="{0EFE3EA8-CAB9-476A-9C41-FC79CBFEF03B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="region"
+              DTS:DTSID="{CAF6DFEC-77C4-4234-AE42-512F353CD876}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="subregion"
+              DTS:DTSID="{D6378A71-2AA7-4E00-A67A-BD0694DC20F9}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="income_level"
+              DTS:DTSID="{1A76DE6F-E005-4E02-ACD9-7F9F304C5241}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lat"
+              DTS:DTSID="{470B3487-512D-47B9-AB37-1344E706D2D3}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="255"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="lon"
+              DTS:DTSID="{58ECD35A-2ECC-4EAF-8BB8-36C6D3429F67}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_DIM_SEARCH_TERM]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{3FE94777-ACA4-4F2C-81F6-5F9090593A7B}"
+      DTS:ObjectName="FF_DIM_SEARCH_TERM">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="8192"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="65001"
+          DTS:ConnectionString="D:\Data-Warehouse\Extract\SearchTerms\stg_dim_search_term.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="term_id"
+              DTS:DTSID="{9A8C2C2A-CF00-4838-8C60-B6F9E938F590}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="keyword"
+              DTS:DTSID="{37435C0F-D921-4DE0-A236-5FA9C411F814}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="genre"
+              DTS:DTSID="{E2EEB964-0596-4EA9-9313-2894A518F4FE}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.DataWarehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{2CADB795-57FE-4E39-A736-F1912BAC1D5A}"
+      DTS:ObjectName="localhost.DataWarehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=DataWarehouse;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-DW_10_LoadDimensions-{2CADB795-57FE-4E39-A736-F1912BAC1D5A}localhost.DataWarehouse;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load_DIM_COUNTRY"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{950C6F3E-DED4-4C9B-BFCF-864F13AD6980}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_DIM_COUNTRY"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_DIM_COUNTRY\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input].Columns[name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="name"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[name]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input].Columns[region]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="region"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[region]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input].Columns[subregion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="subregion"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[subregion]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input].Columns[income_level]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="income_level"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[income_level]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[name_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[name_u]"
+                      name="name_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[name]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[region_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[region_u]"
+                      name="region_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[region]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[subregion_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[subregion_u]"
+                      name="subregion_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[subregion]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[income_level_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[income_level_u]"
+                      name="income_level_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[income_level]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_DIM_COUNTRY\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="8192"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_DIM_COUNTRY\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FF_DIM_COUNTRY]"
+                  connectionManagerRefId="Package.ConnectionManagers[FF_DIM_COUNTRY]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso3]"
+                      length="3"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso3]"
+                      name="iso3"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso2]"
+                      length="2"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]"
+                      name="iso2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[name]"
+                      name="name"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[region]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[region]"
+                      name="region"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[subregion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[subregion]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[subregion]"
+                      name="subregion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[income_level]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[income_level]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[income_level]"
+                      name="income_level"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[lat]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lat]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[lat]"
+                      name="lat"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[lon]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lon]"
+                      length="255"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[lon]"
+                      name="lon"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="iso3" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[region]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[subregion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="subregion" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[income_level]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="income_level" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lat]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="lat" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[lon]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="lon" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_DIM_COUNTRY\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DIM_COUNTRY]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="iso3"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso3]"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso3]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="iso2"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      lineageId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[region_u]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="region_u"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[region_u]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[subregion_u]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="subregion_u"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[subregion]"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[subregion_u]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[income_level_u]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="income_level_u"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[income_level]"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[income_level_u]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[name_u]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="name_u"
+                      externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[name_u]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="iso3" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
+                      dataType="wstr"
+                      length="100"
+                      name="name" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
+                      dataType="wstr"
+                      length="60"
+                      name="region" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[subregion]"
+                      dataType="wstr"
+                      length="60"
+                      name="subregion" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[income_level]"
+                      dataType="wstr"
+                      length="40"
+                      name="income_level" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lat]"
+                      dataType="numeric"
+                      name="lat"
+                      precision="8"
+                      scale="5" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[lon]"
+                      dataType="numeric"
+                      name="lon"
+                      precision="8"
+                      scale="5" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_COUNTRY\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_DIM_COUNTRY.Paths[Data Conversion Output]"
+              endId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load_DIM_COUNTRY.Paths[Flat File Source Output]"
+              endId="Package\Load_DIM_COUNTRY\Data Conversion.Inputs[Data Conversion Input]"
+              name="Flat File Source Output"
+              startId="Package\Load_DIM_COUNTRY\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load_DIM_SEARCH_TERM"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{8986E485-4A2E-47BC-A2F1-1BD5706C2D36}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_DIM_SEARCH_TERM"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_DIM_SEARCH_TERM\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input].Columns[keyword]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="keyword"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input].Columns[genre]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="genre"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[genre]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]"
+                      name="keyword_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[genre_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[genre_u]"
+                      name="genre_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[genre]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_DIM_SEARCH_TERM\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="8192"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FF_DIM_SEARCH_TERM]"
+                  connectionManagerRefId="Package.ConnectionManagers[FF_DIM_SEARCH_TERM]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[term_id]"
+                      length="50"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]"
+                      name="term_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[keyword]"
+                      length="50"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]"
+                      name="keyword"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[genre]"
+                      codePage="65001"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[genre]"
+                      length="50"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[genre]"
+                      name="genre"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[term_id]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[keyword]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="keyword" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[genre]"
+                      codePage="65001"
+                      dataType="str"
+                      length="50"
+                      name="genre" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="65001"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DIM_SEARCH_TERM]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">true</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[term_id]"
+                      cachedCodepage="65001"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="term_id"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[genre_u]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="genre_u"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[genre]"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[genre_u]" />
+                    <inputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[keyword_u]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="keyword_u"
+                      externalMetadataColumnId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[keyword]"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      dataType="i4"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[keyword]"
+                      dataType="wstr"
+                      length="100"
+                      name="keyword" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[genre]"
+                      dataType="wstr"
+                      length="60"
+                      name="genre" />
+                    <externalMetadataColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[pricing_model]"
+                      dataType="wstr"
+                      length="20"
+                      name="pricing_model" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_DIM_SEARCH_TERM.Paths[Data Conversion Output]"
+              endId="Package\Load_DIM_SEARCH_TERM\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load_DIM_SEARCH_TERM.Paths[Flat File Source Output]"
+              endId="Package\Load_DIM_SEARCH_TERM\Data Conversion.Inputs[Data Conversion Input]"
+              name="Flat File Source Output"
+              startId="Package\Load_DIM_SEARCH_TERM\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="183.2,41.6"
+          Id="Package\Load_DIM_COUNTRY"
+          TopLeft="16.3333327414261,28.0333331766393" />
+        <NodeLayout
+          Size="210.4,41.6"
+          Id="Package\Load_DIM_SEARCH_TERM"
+          TopLeft="299.166650320921,35.533333086239" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load_DIM_COUNTRY">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load_DIM_COUNTRY\Flat File Source"
+          TopLeft="158.999997630715,15.9999997615814" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load_DIM_COUNTRY\OLE DB Destination"
+          TopLeft="158.999997630715,202.999996975064" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Load_DIM_COUNTRY\Data Conversion"
+          TopLeft="159.999997615814,91.9999986290932" />
+        <EdgeLayout
+          Id="Package\Load_DIM_COUNTRY.Paths[Flat File Source Output]"
+          TopLeft="236.299997623265,57.5999997615814">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.3999988675118"
+              Start="0,0"
+              End="0,26.8999988675118">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8999988675118" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_DIM_COUNTRY.Paths[Data Conversion Output]"
+          TopLeft="241.299997623265,133.599998629093">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69.3999983459711"
+              Start="0,0"
+              End="0,61.8999983459711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.8999983459711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_DIM_COUNTRY\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load_DIM_SEARCH_TERM">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load_DIM_SEARCH_TERM\Flat File Source"
+          TopLeft="230.999996557832,57.9999991357327" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load_DIM_SEARCH_TERM\OLE DB Destination"
+          TopLeft="226.999996617436,252.999996230006" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Load_DIM_SEARCH_TERM\Data Conversion"
+          TopLeft="229.999996572733,158.999997630715" />
+        <EdgeLayout
+          Id="Package\Load_DIM_SEARCH_TERM.Paths[Flat File Source Output]"
+          TopLeft="307.299996565282,99.5999991357327">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59.3999984949827"
+              Start="0,0"
+              End="0,51.8999984949827">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.8999984949827" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_DIM_SEARCH_TERM.Paths[Data Conversion Output]"
+          TopLeft="310.299996595085,200.599997630715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.3999985992908"
+              Start="0,0"
+              End="0,44.8999985992908">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.8999985992908" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_DIM_SEARCH_TERM\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
