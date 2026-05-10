@@ -1,18 +1,24 @@
-# SSIS Implementation Plan
+# Data Warehouse Project Plan (SSIS + SQL Server + Power BI)
 
-## Project Context
-This project builds a data warehouse for country-level analytics using:
-- ACLED conflict data
-- World Bank / WGI indicators
-- Google Trends search interest
+## 1. Project Goal
+Build an end-to-end analytics platform for country-level analysis combining:
+- conflict data (ACLED)
+- socio-economic and governance indicators (World Bank / WGI)
+- search behavior trends (Google Trends)
 
-Current selected stack:
+The final result must include:
+- working ETL pipeline
+- multidimensional data model
+- semantic layer
+- business reports that answer project questions
+
+## 2. Selected Stack
 - ETL / orchestration: SSIS + SQL Server Agent
 - Data warehouse: SQL Server
 - Semantic layer: Power BI Model
 - Reporting: Power BI
 
-## Current Inputs (already in repository)
+## 3. Source Inputs Available in Repository
 - Extract/Indicators/stg_acled_conflict.csv
 - Extract/Indicators/stg_wb_indicator.csv
 - Extract/SearchTerms/stg_dim_country.csv
@@ -20,128 +26,237 @@ Current selected stack:
 - Extract/SearchTerms/stg_google_trends.csv
 - Extract/SearchTerms/stg_youtube_anchor.csv
 
-## Target Warehouse Objects
-Defined in SchematBazyDanych.sql:
-- Dimensions: DIM_COUNTRY, DIM_TIME, DIM_SEARCH_TERM
-- Facts: FACT_CONFLICT, FACT_ECONOMY, FACT_GOVERNANCE, FACT_MILITARY, FACT_SOCIETY, FACT_GOOGLE_TRENDS
-- Staging: STG_WB_INDICATOR
+## 4. Target Warehouse Scope
+Schema source: SchematBazyDanych.sql
 
-## Recommended SSIS Solution Structure
-Create one Visual Studio SSIS solution with 4 packages:
+Dimensions:
+- DIM_COUNTRY
+- DIM_TIME
+- DIM_SEARCH_TERM
+
+Facts:
+- FACT_CONFLICT
+- FACT_ECONOMY
+- FACT_GOVERNANCE
+- FACT_MILITARY
+- FACT_SOCIETY
+- FACT_GOOGLE_TRENDS
+
+Staging:
+- STG_WB_INDICATOR
+- STG_GOOGLE_TRENDS (to be added as technical stage)
+
+## 5. Full Delivery Roadmap
+
+### Phase 0 - Project Setup
+Objective: ensure reproducible environment and repository readiness.
+
+Tasks:
+1. Create SQL Server database for DWH.
+2. Apply schema from SchematBazyDanych.sql.
+3. Add technical table STG_GOOGLE_TRENDS.
+4. Create folder convention for input, archive, rejects, and logs.
+5. Define naming convention for SSIS packages and SQL objects.
+
+Deliverables:
+- database created and script applied
+- confirmed table list
+- technical staging table for trends
+
+Exit criteria:
+- all required tables exist
+- connection from SSIS to SQL Server works
+
+### Phase 1 - ETL Foundation in SSIS
+Objective: build a stable and rerunnable SSIS solution.
+
+SSIS packages:
 1. DW_00_Prepare.dtsx
 2. DW_10_LoadDimensions.dtsx
 3. DW_20_LoadIndicatorsAndFacts.dtsx
 4. DW_30_LoadGoogleTrends.dtsx
 
-Orchestration order:
-1. DW_00_Prepare
-2. DW_10_LoadDimensions
-3. DW_20_LoadIndicatorsAndFacts
-4. DW_30_LoadGoogleTrends
+Tasks:
+1. Create SSIS project parameters:
+   - SQL connection string
+   - input folder path
+   - archive folder path
+2. Build DW_00_Prepare:
+   - validate files
+   - load DIM_TIME (2014-2023, half='FY')
+3. Build DW_10_LoadDimensions:
+   - load DIM_COUNTRY
+   - load DIM_SEARCH_TERM
+   - deduplicate and key checks
+4. Build DW_20_LoadIndicatorsAndFacts:
+   - load STG_WB_INDICATOR
+   - load FACT_CONFLICT
+   - transform STG_WB_INDICATOR into FACT_ECONOMY, FACT_GOVERNANCE, FACT_MILITARY, FACT_SOCIETY
+5. Build DW_30_LoadGoogleTrends:
+   - load STG_GOOGLE_TRENDS
+   - key validation against DIM_COUNTRY and DIM_SEARCH_TERM
+   - merge into FACT_GOOGLE_TRENDS
 
-## Package Details
+Deliverables:
+- runnable SSIS solution with 4 packages
+- successful full pipeline execution
 
-### 1) DW_00_Prepare.dtsx
-Goal: initialize technical prerequisites.
+Exit criteria:
+- no failed tasks
+- fact and dimension row counts are non-zero
+- rerun does not create duplicates
 
-Steps:
-1. Execute SQL Task: ensure target database exists and is selected.
-2. Execute SQL Task: run schema script once (or validate required tables).
-3. Execute SQL Task: upsert DIM_TIME for 2014-2023 with half='FY'.
-4. File System Task: validate all required CSV files exist.
-5. Event handler: on error, write to ETL run log table (optional).
+### Phase 2 - Orchestration and Monitoring
+Objective: production-like scheduling and run observability.
 
-## 2) DW_10_LoadDimensions.dtsx
-Goal: load all dimensions before facts.
+Tasks:
+1. Create SQL Server Agent job DW_Nightly_Load.
+2. Add step order:
+   - DW_00_Prepare
+   - DW_10_LoadDimensions
+   - DW_20_LoadIndicatorsAndFacts
+   - DW_30_LoadGoogleTrends
+3. Configure retries and failure notifications.
+4. Create ETL_RUN_LOG table and write status per package.
+5. Archive processed files (optional for demo, recommended for final).
 
-Steps:
-1. Data Flow: load DIM_COUNTRY from stg_dim_country.csv.
-2. Data Flow: load DIM_SEARCH_TERM from stg_dim_search_term.csv.
-3. Execute SQL Task: deduplicate and enforce business keys.
-4. Execute SQL Task: quality checks:
-   - DIM_COUNTRY iso3 count > 0
-   - DIM_SEARCH_TERM keyword count > 0
+Deliverables:
+- scheduled job with logs
+- execution history visible in SQL Agent and ETL_RUN_LOG
 
-Load strategy:
-- Prefer MERGE (upsert) via staging temp table for each dimension.
-- Keep natural keys:
-  - DIM_COUNTRY: iso3
-  - DIM_SEARCH_TERM: keyword (or term_id if fixed dictionary policy is required)
+Exit criteria:
+- at least two successful full runs
+- one forced-failure test with clear error logging
 
-## 3) DW_20_LoadIndicatorsAndFacts.dtsx
-Goal: load indicator staging and transform to fact tables.
+### Phase 3 - Data Quality Layer
+Objective: guarantee trustworthiness of analytical outputs.
 
-Steps:
-1. Data Flow: load STG_WB_INDICATOR from stg_wb_indicator.csv.
-2. Data Flow: load FACT_CONFLICT from stg_acled_conflict.csv.
-3. Execute SQL Task: transform STG_WB_INDICATOR -> FACT_ECONOMY.
-4. Execute SQL Task: transform STG_WB_INDICATOR -> FACT_GOVERNANCE.
-5. Execute SQL Task: transform STG_WB_INDICATOR -> FACT_MILITARY.
-6. Execute SQL Task: transform STG_WB_INDICATOR -> FACT_SOCIETY.
-7. Execute SQL Task: post-load checks for row counts and null ratios.
-
-Transformation approach:
-- Use SQL PIVOT or conditional aggregation with MAX(CASE WHEN indicator_code=... THEN value END).
-- Join to DIM_COUNTRY and DIM_TIME for key validation.
-- Use MERGE into each fact by (iso3, year_id).
-
-## 4) DW_30_LoadGoogleTrends.dtsx
-Goal: populate FACT_GOOGLE_TRENDS from Google Trends CSV.
-
-Steps:
-1. Data Flow: load trends CSV into technical staging table (recommended: STG_GOOGLE_TRENDS).
-2. Execute SQL Task: validate iso2 exists in DIM_COUNTRY.
-3. Execute SQL Task: validate term_id exists in DIM_SEARCH_TERM.
-4. Execute SQL Task: merge into FACT_GOOGLE_TRENDS on (iso2, year_id, term_id).
-5. Execute SQL Task: check outliers and null normalization share.
-
-Notes:
-- Source uses semicolon delimiter in SearchTerms CSVs.
-- interest_raw may exceed tinyint range; if needed, cast safely before inserting into FACT_GOOGLE_TRENDS.interest_raw.
-
-## SQL Server Agent Job
-Create one SQL Agent job: DW_Nightly_Load
-
-Steps in job:
-1. Run SSIS package DW_00_Prepare
-2. Run SSIS package DW_10_LoadDimensions
-3. Run SSIS package DW_20_LoadIndicatorsAndFacts
-4. Run SSIS package DW_30_LoadGoogleTrends
-
-Schedule:
-- Daily at 02:00 (or as required by course demo)
-
-## Data Quality Checks (minimum)
-After each run, verify:
-1. No orphan keys in facts:
-   - FACT_* rows must match DIM_COUNTRY/DIM_TIME
-2. Duplicate key checks:
+Checks to implement:
+1. Duplicate key checks:
    - FACT_CONFLICT (iso3, year_id)
    - FACT_GOOGLE_TRENDS (iso2, year_id, term_id)
-3. Freshness check:
-   - max(loaded_at) from loaded tables is from latest run
+2. Orphan key checks:
+   - all fact keys exist in dimensions
+3. Freshness checks:
+   - loaded_at from latest run
 4. Completeness checks:
-   - expected years present (2014-2023 for indicators/conflict)
-   - expected years present (2019-2023 for trends if that range is used)
+   - 2014-2023 present for conflict and indicators
+   - 2019-2023 present for trends
+5. Null and outlier checks:
+   - high null share by indicator
+   - abnormal spikes in trends and fatalities
 
-## Delivery Order (What to do first)
-1. Create SQL Server database and run SchematBazyDanych.sql.
-2. Build DW_00_Prepare and confirm DIM_TIME load.
-3. Build DW_10_LoadDimensions and validate dimension counts.
-4. Build DW_20_LoadIndicatorsAndFacts and validate all four indicator facts.
-5. Build DW_30_LoadGoogleTrends and validate trends fact keys.
-6. Configure SQL Server Agent schedule and run full pipeline.
-7. Connect Power BI model to SQL Server and create measures.
-8. Build final dashboards based on business questions.
+Deliverables:
+- SQL scripts/views for quality checks
+- one quality summary table or report
 
-## TODO (Ordered)
-1. Add technical staging table STG_GOOGLE_TRENDS in SQL Server.
-2. Create SSIS project and environment parameters (file paths, connection strings).
-3. Implement DW_00_Prepare package.
-4. Implement DW_10_LoadDimensions package.
-5. Implement DW_20_LoadIndicatorsAndFacts package.
-6. Implement DW_30_LoadGoogleTrends package.
-7. Add logging table ETL_RUN_LOG and error output paths.
-8. Configure SQL Server Agent job and test rerun behavior.
-9. Prepare Power BI semantic model.
-10. Deliver at least 3 business-ready report pages.
+Exit criteria:
+- all critical checks pass
+- known exceptions are documented
+
+### Phase 4 - Semantic Model (Power BI)
+Objective: create a business-friendly semantic layer.
+
+Tasks:
+1. Connect Power BI to SQL Server (import mode recommended for class demo).
+2. Build relationships as star schema.
+3. Create date/year logic from DIM_TIME.
+4. Add core DAX measures, for example:
+   - Total Fatalities
+   - Events Count
+   - Avg GDP per Capita
+   - Internet Penetration
+   - Governance Composite Score
+   - Trends Interest Index
+5. Add data category and formatting standards.
+
+Deliverables:
+- validated semantic model
+- documented measures list
+
+Exit criteria:
+- all visuals use model measures
+- filters and drill behavior are correct
+
+### Phase 5 - Reporting and Business Questions
+Objective: answer required business questions with clear visuals.
+
+Required output:
+- 7-12 business questions
+- report pages with charts and slicers
+
+Suggested report pages:
+1. Conflict Overview by Country and Year
+2. Economy vs Conflict Correlation
+3. Governance and Stability Map
+4. Society and Military Profile
+5. Search Trends vs Real-World Indicators
+
+Deliverables:
+- Power BI report with at least 3 pages (recommended 5)
+- each page mapped to business questions
+
+Exit criteria:
+- every business question has at least one visual answer
+- report works end-to-end during live demo
+
+### Phase 6 - Finalization and Defense Pack
+Objective: prepare final submission and smooth presentation.
+
+Tasks:
+1. Freeze dataset version for demo.
+2. Prepare architecture diagram.
+3. Prepare ETL flow diagram (sources -> SSIS -> DWH -> Power BI).
+4. Prepare 5-7 minute demo script.
+5. Prepare backup screenshots in case of runtime issues.
+6. Prepare Q and A notes (design decisions, limitations, next steps).
+
+Deliverables:
+- final presentation deck
+- demo script
+- validated report file
+
+Exit criteria:
+- team can run demo without manual fixes
+- all required artifacts are in repository or submission folder
+
+## 6. Definition of Done (Whole Project)
+Project is complete when all conditions are true:
+1. Data warehouse schema is deployed and populated.
+2. SSIS ETL pipeline runs in correct order and is rerunnable.
+3. SQL Server Agent job executes successfully on schedule.
+4. Data quality checks are implemented and documented.
+5. Power BI semantic model is stable and measure-driven.
+6. Reports answer 7-12 business questions with visual evidence.
+7. Demo package and presentation are ready.
+
+## 7. Risks and Mitigations
+1. Data format drift in CSV files.
+   Mitigation: strict schema mapping and reject output in SSIS.
+2. Inconsistent keys between sources.
+   Mitigation: pre-load validation against DIM_COUNTRY and DIM_SEARCH_TERM.
+3. Long ETL runtime.
+   Mitigation: staged loads, indexes, and incremental rerun strategy.
+4. Last-minute demo failure.
+   Mitigation: freeze data snapshot and keep offline backup visuals.
+
+## 8. Ordered TODO (Execution Checklist)
+1. Deploy schema and create STG_GOOGLE_TRENDS.
+2. Build SSIS project parameters and shared connections.
+3. Implement DW_00_Prepare.dtsx.
+4. Implement DW_10_LoadDimensions.dtsx.
+5. Implement DW_20_LoadIndicatorsAndFacts.dtsx.
+6. Implement DW_30_LoadGoogleTrends.dtsx.
+7. Add ETL_RUN_LOG and package-level error handling.
+8. Configure SQL Server Agent job and run full E2E test.
+9. Implement quality check SQL scripts/views.
+10. Build Power BI model and DAX measures.
+11. Build report pages mapped to business questions.
+12. Prepare final demo and defense materials.
+
+## 9. Milestone Snapshot (Suggested)
+1. Milestone A: Schema + dimensions loaded.
+2. Milestone B: All facts loaded and quality checks passing.
+3. Milestone C: Agent scheduling + stable reruns.
+4. Milestone D: Power BI model complete.
+5. Milestone E: Final report + presentation ready.
