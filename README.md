@@ -18,6 +18,47 @@ The final result must include:
 - Semantic layer: Power BI Model
 - Reporting: Power BI
 
+## 2.1 SQL Bootstrap Scripts (Run First)
+Before SSIS development, run these SQL scripts in SSMS.
+
+### Script A: SchematBazyDanych.sql
+Purpose:
+1. Creates the core warehouse schema.
+2. Creates dimensions, facts, staging table, indexes, and foreign keys.
+
+When to run:
+1. First run on a clean database.
+2. Re-run only if you intentionally rebuild schema.
+
+### Script B: 01_step_start_sqlserver_setup.sql
+Purpose:
+1. Creates database DataWarehouse if missing.
+2. Validates core tables from SchematBazyDanych.sql.
+3. Creates technical stage table STG_GOOGLE_TRENDS if missing.
+4. Upserts DIM_TIME for years 2014-2023.
+5. Prints validation counts.
+
+When to run:
+1. Immediately after Script A.
+2. Safe to re-run for validation.
+
+### Exact Execution Order in SSMS
+1. Open SSMS and connect to SQL Server instance.
+2. Open and execute SchematBazyDanych.sql.
+3. Open and execute 01_step_start_sqlserver_setup.sql.
+4. Confirm there are no blocking errors in Messages.
+5. Confirm row counts from validation output are visible.
+
+Expected result after Script B:
+1. DIM_TIME has 10 rows (2014-2023).
+2. STG_GOOGLE_TRENDS exists.
+3. Other tables may still have 0 rows until SSIS loads are built and executed.
+
+If you get "object already exists":
+1. It usually means schema was already partially created.
+2. Continue only after confirming required tables exist.
+3. For clean rerun, rebuild database intentionally, then run Script A and Script B again.
+
 ## 3. Source Inputs Available in Repository
 - Extract/Indicators/stg_acled_conflict.csv
 - Extract/Indicators/stg_wb_indicator.csv

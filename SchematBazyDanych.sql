@@ -44,7 +44,7 @@ CREATE TABLE FACT_CONFLICT (
                                battles_count int  NOT NULL DEFAULT 0,
                                protests_count int  NOT NULL DEFAULT 0,
                                conflict_type nvarchar(40)  NULL,
-                               source varchar(10)  NOT NULL DEFAULT acled,
+                               source varchar(10)  NOT NULL DEFAULT 'acled',
                                loaded_at datetime2  NOT NULL DEFAULT sysutcdatetime(),
                                CONSTRAINT PK_FACT_CONFLICT PRIMARY KEY  (iso3,year_id)
 );
@@ -76,7 +76,7 @@ CREATE TABLE FACT_GOOGLE_TRENDS (
                                     term_id int  NOT NULL,
                                     interest_normalized decimal(10,4)  NULL,
                                     interest_raw tinyint  NULL,
-                                    anchor_term nvarchar(50)  NOT NULL DEFAULT youtube,
+                                    anchor_term nvarchar(50)  NOT NULL DEFAULT 'youtube',
                                     CONSTRAINT PK_FACT_GOOGLE_TRENDS PRIMARY KEY  (iso2,year_id,term_id)
 );
 
