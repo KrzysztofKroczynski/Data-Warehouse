@@ -204,6 +204,10 @@ cython_debug/
 
 # Visual Studio local metadata
 .vs/
+
+# Build artifacts
+bin/
+obj/
 .cursorignore
 .cursorindexingignore
 
