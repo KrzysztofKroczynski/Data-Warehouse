@@ -18,7 +18,126 @@ The final result must include:
 - Semantic layer: Power BI Model
 - Reporting: Power BI
 
-## 2.1 SQL Bootstrap Scripts (Run First)
+## 2.1 Who Should Use Which Setup Path
+
+### Option A - Group Setup (Build Data Locally)
+Use this path if you want to:
+1. run the warehouse on your own machine,
+2. reproduce the dataset locally,
+3. build your own Power BI model and reports from the same SQL Server database.
+
+Outcome:
+1. you will have a populated local `DataWarehouse` database,
+2. you can connect Power BI Desktop to that database,
+3. you can design your own semantic model and visuals.
+
+### Option B - Demo Setup (Restore Ready Database)
+Use this path if you want to:
+1. review the final project quickly,
+2. avoid SSIS setup,
+3. open Power BI on top of a ready database backup.
+
+Outcome:
+1. restore the ready `DataWarehouse` backup,
+2. open the Power BI file,
+3. review the final dashboard without rebuilding ETL.
+
+Recommended use:
+1. Group: Option A.
+2. Demo: Option B.
+
+## 2.2 Prerequisites
+
+### For Group Setup
+Install these tools first:
+1. SQL Server Developer or Express.
+2. SQL Server Management Studio (SSMS).
+3. Visual Studio with `SQL Server Integration Services Projects` extension.
+4. Power BI Desktop.
+5. Python 3.x only if you want to regenerate source CSV files yourself.
+
+Environment assumptions:
+1. Windows machine.
+2. Local SQL Server instance available.
+3. Repository cloned to a local folder.
+
+### For Demo Setup
+Install these tools first:
+1. SQL Server.
+2. SSMS.
+3. Power BI Desktop.
+
+Optional:
+1. Visual Studio and SSIS are not required if you use a ready backup.
+
+## 2.3 Group Setup - Exact Local Run Order
+This is the recommended path for group members who want to build their own Power BI solution.
+
+### Step 1 - Prepare SQL Server
+1. Open SSMS and connect to your SQL Server instance.
+2. Create a clean environment or use a fresh `DataWarehouse` database.
+
+### Step 2 - Deploy Core Schema
+Run these scripts in order:
+1. `SchematBazyDanych.sql`
+2. `01_step_start_sqlserver_setup.sql`
+
+### Step 3 - Run SSIS Packages
+Open the SSIS solution and run packages in this order:
+1. `DW_10_LoadDimensions`
+2. `DW_20_LoadIndicatorsAndFacts`
+3. `DW_30_LoadGoogleTrends`
+
+### Step 4 - Refresh Country Coordinates
+Run:
+1. `04_step_update_country_coords_from_csv.sql`
+
+Reason:
+1. `DIM_COUNTRY` is loaded by SSIS first,
+2. `lat/lon` are then updated directly from the source CSV in SQL Server,
+3. this is more stable than adding complex coordinate conversion logic to SSIS.
+
+### Step 5 - Validate the Dataset
+Expected project state after a successful full run:
+1. `DIM_TIME = 5`
+2. `DIM_COUNTRY = 217`
+3. `DIM_SEARCH_TERM = 50`
+4. `FACT_CONFLICT = 952`
+5. `FACT_ECONOMY = 1085`
+6. `FACT_GOVERNANCE = 1085`
+7. `FACT_MILITARY = 1085`
+8. `FACT_SOCIETY = 1085`
+9. `FACT_GOOGLE_TRENDS = 34184`
+10. `rows_with_coords = 211`
+
+### Step 6 - Start Power BI Work
+At this point the local SQL Server database is ready for Power BI.
+
+Each group member can now:
+1. connect Power BI Desktop to the local `DataWarehouse`,
+2. import the dimensions and facts,
+3. create their own relationships, measures, and visuals.
+
+## 2.4 Demo Setup - Quick Review Path
+Use this path if a ready SQL Server backup and Power BI file are provided.
+
+### Step 1 - Restore Ready Database
+1. Open SSMS.
+2. Restore the provided `DataWarehouse` backup.
+3. Confirm that the restored database is online.
+
+### Step 2 - Open Power BI
+1. Open the provided Power BI file.
+2. If needed, update the SQL Server data source to your local instance.
+3. Refresh the dataset.
+
+### Step 3 - Review the Result
+At this point the lecturer can:
+1. inspect the ready warehouse data,
+2. review Power BI pages,
+3. validate that the end-to-end solution works.
+
+## 2.5 SQL Bootstrap Scripts
 Before SSIS development, run these SQL scripts in SSMS.
 
 ### Script A: SchematBazyDanych.sql
@@ -77,6 +196,54 @@ If you get "object already exists":
 1. It usually means schema was already partially created.
 2. Continue only after confirming required tables exist.
 3. For clean rerun, rebuild database intentionally, then run Script A and Script B again.
+
+## 2.6 Validation Queries
+
+### Minimal Validation for Group Members
+Run these checks after the full ETL + coordinate update flow:
+
+```sql
+USE [DataWarehouse];
+GO
+
+SELECT 'DIM_COUNTRY' AS table_name, COUNT(*) AS row_count FROM dbo.DIM_COUNTRY
+UNION ALL
+SELECT 'DIM_SEARCH_TERM', COUNT(*) FROM dbo.DIM_SEARCH_TERM
+UNION ALL
+SELECT 'DIM_TIME', COUNT(*) FROM dbo.DIM_TIME
+UNION ALL
+SELECT 'FACT_CONFLICT', COUNT(*) FROM dbo.FACT_CONFLICT
+UNION ALL
+SELECT 'FACT_ECONOMY', COUNT(*) FROM dbo.FACT_ECONOMY
+UNION ALL
+SELECT 'FACT_GOVERNANCE', COUNT(*) FROM dbo.FACT_GOVERNANCE
+UNION ALL
+SELECT 'FACT_MILITARY', COUNT(*) FROM dbo.FACT_MILITARY
+UNION ALL
+SELECT 'FACT_SOCIETY', COUNT(*) FROM dbo.FACT_SOCIETY
+UNION ALL
+SELECT 'FACT_GOOGLE_TRENDS', COUNT(*) FROM dbo.FACT_GOOGLE_TRENDS;
+GO
+
+SELECT COUNT(*) AS rows_with_coords
+FROM dbo.DIM_COUNTRY
+WHERE lat IS NOT NULL
+   AND lon IS NOT NULL;
+GO
+```
+
+Expected coordinate result:
+1. `rows_with_coords = 211`
+2. The remaining countries have missing coordinates in the source CSV, so `NULL` is expected.
+
+## 2.7 Ready for Power BI
+The project is ready for Power BI work when:
+1. SQL scripts were executed in the correct order,
+2. SSIS packages completed successfully,
+3. `04_step_update_country_coords_from_csv.sql` updated country coordinates,
+4. validation row counts match the expected results.
+
+At that point each person can build their own Power BI solution independently on top of the same warehouse.
 
 ## 3. Source Inputs Available in Repository
 - Extract/Indicators/stg_acled_conflict.csv
