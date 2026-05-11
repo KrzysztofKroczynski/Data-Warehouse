@@ -489,9 +489,3 @@ Project is complete when all conditions are true:
 11. Build report pages mapped to business questions.
 12. Prepare final demo and defense materials.
 
-## 9. Milestone Snapshot (Suggested)
-1. Milestone A: Schema + dimensions loaded.
-2. Milestone B: All facts loaded and quality checks passing.
-3. Milestone C: Agent scheduling + stable reruns.
-4. Milestone D: Power BI model complete.
-5. Milestone E: Final report + presentation ready.
