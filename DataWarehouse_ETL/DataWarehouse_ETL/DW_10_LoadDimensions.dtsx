@@ -11,8 +11,8 @@
   DTS:LocaleID="8192"
   DTS:ObjectName="DW_10_LoadDimensions"
   DTS:PackageType="5"
-  DTS:VersionBuild="27"
-  DTS:VersionGUID="{90AC0749-0319-4E23-A0D9-3DC722A24C98}">
+  DTS:VersionBuild="28"
+  DTS:VersionGUID="{66104A51-C007-4E27-A387-4F4655E463F4}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -240,7 +240,7 @@
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="255"
+                      length="100"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[name_u]"
                       name="name_u"
                       truncationRowDisposition="FailComponent">
@@ -261,7 +261,7 @@
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="255"
+                      length="60"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[region_u]"
                       name="region_u"
                       truncationRowDisposition="FailComponent">
@@ -282,7 +282,7 @@
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="255"
+                      length="60"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[subregion_u]"
                       name="subregion_u"
                       truncationRowDisposition="FailComponent">
@@ -303,7 +303,7 @@
                       dataType="wstr"
                       errorOrTruncationOperation="Conversion"
                       errorRowDisposition="FailComponent"
-                      length="255"
+                      length="40"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[income_level_u]"
                       name="income_level_u"
                       truncationRowDisposition="FailComponent">
@@ -726,28 +726,28 @@
                     <inputColumn
                       refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[region_u]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="60"
                       cachedName="region_u"
                       externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[region]"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[region_u]" />
                     <inputColumn
                       refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[subregion_u]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="60"
                       cachedName="subregion_u"
                       externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[subregion]"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[subregion_u]" />
                     <inputColumn
                       refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[income_level_u]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="40"
                       cachedName="income_level_u"
                       externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[income_level]"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[income_level_u]" />
                     <inputColumn
                       refId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[name_u]"
                       cachedDataType="wstr"
-                      cachedLength="255"
+                      cachedLength="100"
                       cachedName="name_u"
                       externalMetadataColumnId="Package\Load_DIM_COUNTRY\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[name]"
                       lineageId="Package\Load_DIM_COUNTRY\Data Conversion.Outputs[Data Conversion Output].Columns[name_u]" />
@@ -1301,13 +1301,13 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="151.2,41.6"
-          Id="Package\Load_DIM_COUNTRY\Flat File Source"
-          TopLeft="158.999997630715,15.9999997615814" />
-        <NodeLayout
           Size="171.2,41.6"
           Id="Package\Load_DIM_COUNTRY\OLE DB Destination"
           TopLeft="158.999997630715,202.999996975064" />
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load_DIM_COUNTRY\Flat File Source"
+          TopLeft="158.999997630715,15.9999997615814" />
         <NodeLayout
           Size="156,41.6"
           Id="Package\Load_DIM_COUNTRY\Data Conversion"
@@ -1376,7 +1376,7 @@
     design-time-name="Package\Load_DIM_SEARCH_TERM">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="151.2,41.6"
           Id="Package\Load_DIM_SEARCH_TERM\Flat File Source"
@@ -1408,7 +1408,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1430,7 +1432,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
