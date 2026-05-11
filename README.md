@@ -42,17 +42,36 @@ When to run:
 1. Immediately after Script A.
 2. Safe to re-run for validation.
 
+### Script C: 04_step_update_country_coords_from_csv.sql
+Purpose:
+1. Loads Extract/SearchTerms/stg_dim_country.csv into a temporary staging table.
+2. Normalizes iso3, lat, and lon values.
+3. Updates DIM_COUNTRY.lat and DIM_COUNTRY.lon directly in SQL Server.
+4. Prints validation counts and sample rows with coordinates.
+
+When to run:
+1. After DIM_COUNTRY has already been loaded by SSIS.
+2. Any time country coordinates need to be refreshed from the source CSV.
+3. Preferred over adding complex lat/lon transformations to the SSIS package.
+
 ### Exact Execution Order in SSMS
 1. Open SSMS and connect to SQL Server instance.
 2. Open and execute SchematBazyDanych.sql.
 3. Open and execute 01_step_start_sqlserver_setup.sql.
-4. Confirm there are no blocking errors in Messages.
-5. Confirm row counts from validation output are visible.
+4. Run the SSIS dimension load package.
+5. Open and execute 04_step_update_country_coords_from_csv.sql.
+6. Confirm there are no blocking errors in Messages.
+7. Confirm row counts from validation output are visible.
 
 Expected result after Script B:
 1. DIM_TIME has 5 rows (2019-2023).
 2. STG_GOOGLE_TRENDS exists.
 3. Other tables may still have 0 rows until SSIS loads are built and executed.
+
+Expected result after Script C:
+1. DIM_COUNTRY coordinates are updated directly from the country CSV.
+2. Countries with missing coordinates in the source remain NULL.
+3. The SQL validation output shows how many DIM_COUNTRY rows now have both lat and lon.
 
 If you get "object already exists":
 1. It usually means schema was already partially created.

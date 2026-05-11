@@ -29,10 +29,10 @@ CREATE TABLE DIM_COUNTRY (
     iso2 char(2)  NOT NULL,
     name nvarchar(100)  NOT NULL,
     region nvarchar(60)  NOT NULL,
-    subregion nvarchar(60)  NULL,
+    subregion nvarchar(100)  NULL,
     income_level nvarchar(40)  NULL,
-    lat decimal(8,5)  NULL,
-    lon decimal(8,5)  NULL,
+    lat decimal(10,7)  NULL,
+    lon decimal(10,7)  NULL,
     CONSTRAINT UQ_DIM_COUNTRY_iso2 UNIQUE (iso2),
     CONSTRAINT PK_DIM_COUNTRY PRIMARY KEY  (iso3)
 );
