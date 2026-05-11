@@ -1,0 +1,1742 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="5/11/2026 7:39:48 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DANIL"
+  DTS:CreatorName="DANIL\Danil"
+  DTS:DTSID="{A7A23716-7A5C-4208-8A19-C0FEC47FC2CC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Package1"
+  DTS:PackageType="5"
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{FAADC024-86AD-4943-ACF1-8F29CC73289B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[FF_STG_GOOGLE_TRENDS]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{9E2C5C43-24B0-4BFD-AB8C-12048B79B5F7}"
+      DTS:ObjectName="FF_STG_GOOGLE_TRENDS">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="8192"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="D:\Data-Warehouse\Extract\SearchTerms\stg_google_trends.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="2"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="iso2"
+              DTS:DTSID="{270CC618-4694-4E1B-90B5-E01BE821A69B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="year_id"
+              DTS:DTSID="{27F15A3A-9458-4283-8CE5-BA7AF4F27BCB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="term_id"
+              DTS:DTSID="{06616E36-1E73-499E-BB07-0B1F263B435B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="keyword"
+              DTS:DTSID="{91B281F3-555A-45AB-BBC2-4CC68A2CDCA4}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="interest_raw"
+              DTS:DTSID="{FAC4831C-5AE1-488D-84E6-8B992199B848}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="interest_normalized"
+              DTS:DTSID="{6F0658B4-357A-49F7-8CAC-F020EF219F39}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x003B_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="anchor_term"
+              DTS:DTSID="{92A4D8C3-EA36-453D-A117-BA0A90F2368B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="anchor_raw"
+              DTS:DTSID="{24CFE20C-9ADC-4BA5-962A-FD95D10C7840}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.DataWarehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{368B260E-90D2-4C3C-A976-16EB9D0DA88A}"
+      DTS:ObjectName="localhost.DataWarehouse">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=DataWarehouse;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-Package1-{368B260E-90D2-4C3C-A976-16EB9D0DA88A}localhost.DataWarehouse;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load_FACT_GOOGLE_TRENDS"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{C4AE4001-5769-4905-92A3-5DF0D7013902}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_FACT_GOOGLE_TRENDS"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT Id, Term FROM dbo.DIM_ANCHOR_TERM;</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT Id, Term FROM dbo.DIM_ANCHOR_TERM;) [refTable]
+where [refTable].[Term] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Term" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input].Columns[anchor_term]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="anchor_term"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Term</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Match Output].Columns[Id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Match Output].Columns[Id]"
+                      name="Id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">Id</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[FACT_GOOGLE_TRENDS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="iso2"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[iso2]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[year_id]"
+                      cachedDataType="i4"
+                      cachedName="year_id"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[year_id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[year_id]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[term_id]"
+                      cachedDataType="i4"
+                      cachedName="term_id"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[term_id]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interest_raw]"
+                      cachedDataType="i4"
+                      cachedName="interest_raw"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_raw]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_raw]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interest_normalized]"
+                      cachedDataType="numeric"
+                      cachedName="interest_normalized"
+                      cachedPrecision="14"
+                      cachedScale="6"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_normalized]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_normalized]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[anchor_raw]"
+                      cachedDataType="i4"
+                      cachedName="anchor_raw"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_raw]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_raw]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Id]"
+                      cachedDataType="i4"
+                      cachedName="Id"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term_Id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Match Output].Columns[Id]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[year_id]"
+                      dataType="i4"
+                      name="year_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      dataType="i4"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_normalized]"
+                      dataType="numeric"
+                      name="interest_normalized"
+                      precision="10"
+                      scale="4" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_raw]"
+                      dataType="ui1"
+                      name="interest_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term_Id]"
+                      dataType="i4"
+                      name="anchor_term_Id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_raw]"
+                      dataType="i4"
+                      name="anchor_raw" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_GOOGLE_TRENDS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">0</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[iso2]"
+                      length="2"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[iso2]"
+                      name="iso2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[year_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[year_id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[year_id]"
+                      name="year_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[term_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[term_id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[term_id]"
+                      name="term_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[keyword]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[keyword]"
+                      length="100"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[keyword]"
+                      name="keyword"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_raw]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[interest_raw]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_raw]"
+                      name="interest_raw"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_normalized]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[interest_normalized]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[interest_normalized]"
+                      name="interest_normalized"
+                      precision="14"
+                      scale="6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_term]"
+                      length="50"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term]"
+                      name="anchor_term"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term_id]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_term_id]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_term_id]"
+                      name="anchor_term_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_raw]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_raw]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[anchor_raw]"
+                      name="anchor_raw"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[loaded_at]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[loaded_at]"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].Columns[loaded_at]"
+                      name="loaded_at"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[year_id]"
+                      dataType="i4"
+                      name="year_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[term_id]"
+                      dataType="i4"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[keyword]"
+                      dataType="wstr"
+                      length="100"
+                      name="keyword" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[interest_raw]"
+                      dataType="i4"
+                      name="interest_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[interest_normalized]"
+                      dataType="numeric"
+                      name="interest_normalized"
+                      precision="14"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_term]"
+                      dataType="wstr"
+                      length="50"
+                      name="anchor_term" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_term_id]"
+                      dataType="i4"
+                      name="anchor_term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[anchor_raw]"
+                      dataType="i4"
+                      name="anchor_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[loaded_at]"
+                      dataType="dbTimeStamp2"
+                      name="loaded_at"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[iso2]"
+                      name="iso2" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[year_id]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[year_id]"
+                      name="year_id" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[term_id]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[term_id]"
+                      name="term_id" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[keyword]"
+                      dataType="wstr"
+                      length="100"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[keyword]"
+                      name="keyword" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[interest_raw]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[interest_raw]"
+                      name="interest_raw" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[interest_normalized]"
+                      dataType="numeric"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[interest_normalized]"
+                      name="interest_normalized"
+                      precision="14"
+                      scale="6" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_term]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_term]"
+                      name="anchor_term" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_term_id]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_term_id]"
+                      name="anchor_term_id" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_raw]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[anchor_raw]"
+                      name="anchor_raw" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[loaded_at]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[loaded_at]"
+                      name="loaded_at"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_FACT_GOOGLE_TRENDS.Paths[Lookup Match Output]"
+              endId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Lookup Match Output"
+              startId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\Load_FACT_GOOGLE_TRENDS.Paths[OLE DB Source Output]"
+              endId="Package\Load_FACT_GOOGLE_TRENDS\Lookup.Inputs[Lookup Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load_STG_GOOGLE_TRENDS"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E90C5532-4E2E-4B69-B8E1-16DECDF436C0}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load_STG_GOOGLE_TRENDS"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="Data Conversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input].Columns[keyword]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="keyword"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input].Columns[anchor_term]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="anchor_term"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_term]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]"
+                      name="keyword_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[anchor_term_u]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[anchor_term_u]"
+                      name="anchor_term_u"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_term]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source"
+              componentClassID="Microsoft.FlatFileSource"
+              contactInfo="Flat File Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Flat File Source"
+              localeId="8192"
+              name="Flat File Source"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether zero-length columns are treated as null."
+                  name="RetainNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of an output column containing the file name. If no name is specified, no output column containing the file name will be generated."
+                  name="FileNameColumnName"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[FF_STG_GOOGLE_TRENDS]"
+                  connectionManagerRefId="Package.ConnectionManagers[FF_STG_GOOGLE_TRENDS]"
+                  name="FlatFileConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output]"
+                  name="Flat File Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso2]"
+                      length="2"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]"
+                      name="iso2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[year_id]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]"
+                      name="year_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[term_id]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]"
+                      name="term_id"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[keyword]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[keyword]"
+                      name="keyword"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_raw]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[interest_raw]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_raw]"
+                      name="interest_raw"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_normalized]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[interest_normalized]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_normalized]"
+                      name="interest_normalized"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_term]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[anchor_term]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_term]"
+                      name="anchor_term"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_raw]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[anchor_raw]"
+                      length="50"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_raw]"
+                      name="anchor_raw"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the data is in binary format."
+                          name="UseBinaryFormat">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[year_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="year_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[term_id]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[keyword]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="keyword" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[interest_raw]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="interest_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[interest_normalized]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="interest_normalized" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[anchor_term]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="anchor_term" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].ExternalColumns[anchor_raw]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="anchor_raw" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output]"
+                  isErrorOut="true"
+                  name="Flat File Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      codePage="1252"
+                      dataType="text"
+                      description="Flat File Source Error Output Column"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[Flat File Source Error Output Column]"
+                      name="Flat File Source Error Output Column" />
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STG_GOOGLE_TRENDS]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1251</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  connectionManagerRefId="Package.ConnectionManagers[localhost.DataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="iso2"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[iso2]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[year_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="year_id"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[year_id]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[term_id]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="term_id"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[term_id]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interest_raw]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="interest_raw"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_raw]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_raw]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[interest_normalized]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="interest_normalized"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_normalized]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[interest_normalized]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[anchor_raw]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="anchor_raw"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_raw]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output].Columns[anchor_raw]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[anchor_term_u]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="anchor_term_u"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[anchor_term_u]" />
+                    <inputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[keyword_u]"
+                      cachedDataType="wstr"
+                      cachedLength="100"
+                      cachedName="keyword_u"
+                      externalMetadataColumnId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[keyword]"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output].Columns[keyword_u]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="iso2" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[year_id]"
+                      dataType="i4"
+                      name="year_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[term_id]"
+                      dataType="i4"
+                      name="term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[keyword]"
+                      dataType="wstr"
+                      length="100"
+                      name="keyword" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_raw]"
+                      dataType="i4"
+                      name="interest_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_normalized]"
+                      dataType="numeric"
+                      name="interest_normalized"
+                      precision="14"
+                      scale="6" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term]"
+                      dataType="wstr"
+                      length="50"
+                      name="anchor_term" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term_id]"
+                      dataType="i4"
+                      name="anchor_term_id" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_raw]"
+                      dataType="i4"
+                      name="anchor_raw" />
+                    <externalMetadataColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[loaded_at]"
+                      dataType="dbTimeStamp2"
+                      name="loaded_at"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load_STG_GOOGLE_TRENDS.Paths[Data Conversion Output]"
+              endId="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="Data Conversion Output"
+              startId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\Load_STG_GOOGLE_TRENDS.Paths[Flat File Source Output]"
+              endId="Package\Load_STG_GOOGLE_TRENDS\Data Conversion.Inputs[Data Conversion Input]"
+              name="Flat File Source Output"
+              startId="Package\Load_STG_GOOGLE_TRENDS\Flat File Source.Outputs[Flat File Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate_FACT_GOOGLE_TRENDS"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A21C9650-83BF-4E77-BAA4-2931B10ADD05}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate_FACT_GOOGLE_TRENDS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{368B260E-90D2-4C3C-A976-16EB9D0DA88A}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.FACT_GOOGLE_TRENDS;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate_STG_GOOGLE_TRENDS"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3447A734-FA40-47BD-9C08-1DEBBB7B647B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate_STG_GOOGLE_TRENDS"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{368B260E-90D2-4C3C-A976-16EB9D0DA88A}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE dbo.STG_GOOGLE_TRENDS;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{6FD7675B-626C-44F7-B3B9-E18F528CFEC1}"
+      DTS:From="Package\Truncate_STG_GOOGLE_TRENDS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load_STG_GOOGLE_TRENDS" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{306EF834-103B-4E83-9231-0D08F8CA263F}"
+      DTS:From="Package\Truncate_FACT_GOOGLE_TRENDS"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Load_FACT_GOOGLE_TRENDS" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="245.6,41.6"
+          Id="Package\Truncate_STG_GOOGLE_TRENDS"
+          TopLeft="52.4999971315266,30.3333331223991" />
+        <NodeLayout
+          Size="228,41.6"
+          Id="Package\Load_STG_GOOGLE_TRENDS"
+          TopLeft="57.4999968583387,108.333332579997" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="173.399996994933,71.9333331223991">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.3999994575978"
+              Start="0,0"
+              End="0,28.8999994575978">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.8999994575978" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="252,41.6"
+          Id="Package\Truncate_FACT_GOOGLE_TRENDS"
+          TopLeft="365.833313345082,35.533333086239" />
+        <NodeLayout
+          Size="233.6,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS"
+          TopLeft="377.49997937431,108.333332579997" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="493.066646359696,77.133333086239">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.1999994937579"
+              Start="0,0"
+              End="0,23.6999994937579">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6999994937579" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load_STG_GOOGLE_TRENDS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="151.2,41.6"
+          Id="Package\Load_STG_GOOGLE_TRENDS\Flat File Source"
+          TopLeft="74.9999959021808,28.5999998011192" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination"
+          TopLeft="66.6666630241607,178.533332091835" />
+        <NodeLayout
+          Size="156,41.6"
+          Id="Package\Load_STG_GOOGLE_TRENDS\Data Conversion"
+          TopLeft="74.9999959021808,94.4666660097572" />
+        <EdgeLayout
+          Id="Package\Load_STG_GOOGLE_TRENDS.Paths[Flat File Source Output]"
+          TopLeft="151.799995902181,70.1999998011191">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.2666662086381"
+              Start="0,0"
+              End="0,16.7666662086381">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.7666662086381" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_STG_GOOGLE_TRENDS.Paths[Data Conversion Output]"
+          TopLeft="152.633329463171,136.066666009757">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.4666660820776"
+              Start="0,0"
+              End="0,34.9666660820776">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.9666660820776" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source"
+          TopLeft="153.999997705221,34.9999994784594" />
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\Lookup"
+          TopLeft="169.999997466803,119.999998211861" />
+        <EdgeLayout
+          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[OLE DB Source Output]"
+          TopLeft="228.199997586012,76.5999994784594">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.3999987334013"
+              Start="0,0"
+              End="0,35.8999987334013">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.8999987334013" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination"
+          TopLeft="140.999997898936,212.999996826053" />
+        <EdgeLayout
+          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[Lookup Match Output]"
+          TopLeft="226.499997682869,161.599998211861">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.399998614192"
+              Start="0,0"
+              End="0,43.899998614192">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.899998614192" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.145311807096,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
