@@ -70,8 +70,15 @@ Install these tools first:
 Optional:
 1. Visual Studio and SSIS are not required if you use a ready backup.
 
+
 ## 2.3 Group Setup - Exact Local Run Order
 This is the recommended path for group members who want to build their own Power BI solution.
+
+**Important updates (2026):**
+- Before loading dimensions and facts, all fact tables and dimensions are cleared via DELETE (not TRUNCATE) due to foreign key constraints.
+- Country coordinates are now updated automatically after loading DIM_COUNTRY, either by running `04_step_update_country_coords_from_csv.sql` or by including its logic as an Execute SQL Task in SSIS.
+- If you change the structure of any dimension (add columns, change types), always refresh column mappings in SSIS (Data Conversion, OLE DB Destination).
+- The time dimension (DIM_TIME) can be filled by a SQL script or via Execute SQL Task in SSIS; it must be filled before loading facts.
 
 ### Step 1 - Prepare SQL Server
 1. Open SSMS and connect to your SQL Server instance.
@@ -80,26 +87,19 @@ This is the recommended path for group members who want to build their own Power
 ### Step 2 - Deploy Core Schema
 Run these scripts in order:
 1. `SchematBazyDanych.sql`
-2. `01_step_start_sqlserver_setup.sql`
+2. `01_step_start_sqlserver_setup.sql` (fills DIM_TIME for 2019-2023)
 
 ### Step 3 - Run SSIS Packages
 Open the SSIS solution and run packages in this order:
-1. `DW_10_LoadDimensions`
-2. `DW_20_LoadIndicatorsAndFacts`
+1. `DW_10_LoadDimensions` (dimensions are loaded, then coordinates updated via Execute SQL Task or script)
+2. `DW_20_LoadIndicatorsAndFacts` (facts and indicators)
 3. `DW_30_LoadGoogleTrends`
 
-### Step 4 - Refresh Country Coordinates
-Run:
-1. `04_step_update_country_coords_from_csv.sql`
+**Note:** If you get errors about duplicate keys, make sure all fact and dimension tables are cleared with DELETE before loading (not TRUNCATE, due to FK constraints).
 
-Reason:
-1. `DIM_COUNTRY` is loaded by SSIS first,
-2. `lat/lon` are then updated directly from the source CSV in SQL Server,
-3. this is more stable than adding complex coordinate conversion logic to SSIS.
-
-### Step 5 - Validate the Dataset
+### Step 4 - Validate the Dataset
 Expected project state after a successful full run:
-1. `DIM_TIME = 5`
+1. `DIM_TIME = 5` (or your chosen range)
 2. `DIM_COUNTRY = 217`
 3. `DIM_SEARCH_TERM = 50`
 4. `FACT_CONFLICT = 952`
@@ -110,7 +110,7 @@ Expected project state after a successful full run:
 9. `FACT_GOOGLE_TRENDS = 34184`
 10. `rows_with_coords = 211`
 
-### Step 6 - Start Power BI Work
+### Step 5 - Start Power BI Work
 At this point the local SQL Server database is ready for Power BI.
 
 Each group member can now:
