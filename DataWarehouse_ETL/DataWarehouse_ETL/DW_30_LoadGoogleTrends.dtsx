@@ -11,8 +11,8 @@
   DTS:LocaleID="8192"
   DTS:ObjectName="Package1"
   DTS:PackageType="5"
-  DTS:VersionBuild="10"
-  DTS:VersionGUID="{FAADC024-86AD-4943-ACF1-8F29CC73289B}">
+  DTS:VersionBuild="13"
+  DTS:VersionGUID="{8D25318F-4E2F-4A80-9CE1-E37E69F190F6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -189,7 +189,7 @@ where [refTable].[Term] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Term" dataType="DT_WSTR" length="1" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Term" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -438,7 +438,7 @@ where [refTable].[Term] = ?</property>
                       scale="4" />
                     <externalMetadataColumn
                       refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[interest_raw]"
-                      dataType="ui1"
+                      dataType="i4"
                       name="interest_raw" />
                     <externalMetadataColumn
                       refId="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[anchor_term_Id]"
@@ -1427,7 +1427,7 @@ where [refTable].[Term] = ?</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_FACT_GOOGLE_TRENDS"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="1">
+      DTS:ThreadHint="0">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -1444,7 +1444,7 @@ where [refTable].[Term] = ?</property>
       DTS:LocaleID="-1"
       DTS:ObjectName="Truncate_STG_GOOGLE_TRENDS"
       DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-      DTS:ThreadHint="0">
+      DTS:ThreadHint="1">
       <DTS:Variables />
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
@@ -1484,13 +1484,21 @@ where [refTable].[Term] = ?</property>
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="245.6,41.6"
-          Id="Package\Truncate_STG_GOOGLE_TRENDS"
-          TopLeft="52.4999971315266,30.3333331223991" />
+          Size="233.6,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS"
+          TopLeft="377.49997937431,108.333332579997" />
         <NodeLayout
           Size="228,41.6"
           Id="Package\Load_STG_GOOGLE_TRENDS"
           TopLeft="57.4999968583387,108.333332579997" />
+        <NodeLayout
+          Size="252,41.6"
+          Id="Package\Truncate_FACT_GOOGLE_TRENDS"
+          TopLeft="365.833313345082,35.533333086239" />
+        <NodeLayout
+          Size="245.6,41.6"
+          Id="Package\Truncate_STG_GOOGLE_TRENDS"
+          TopLeft="52.4999971315266,30.3333331223991" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="173.399996994933,71.9333331223991">
@@ -1513,14 +1521,6 @@ where [refTable].[Term] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="252,41.6"
-          Id="Package\Truncate_FACT_GOOGLE_TRENDS"
-          TopLeft="365.833313345082,35.533333086239" />
-        <NodeLayout
-          Size="233.6,41.6"
-          Id="Package\Load_FACT_GOOGLE_TRENDS"
-          TopLeft="377.49997937431,108.333332579997" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
           TopLeft="493.066646359696,77.133333086239">
@@ -1546,6 +1546,121 @@ where [refTable].[Term] = ?</property>
       </GraphLayout>
     </LayoutInfo>
   </Package>
+  <TaskHost
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination"
+          TopLeft="140.999997898936,212.999996826053" />
+        <NodeLayout
+          Size="152,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source"
+          TopLeft="153.999997705221,34.9999994784594" />
+        <NodeLayout
+          Size="112.8,41.6"
+          Id="Package\Load_FACT_GOOGLE_TRENDS\Lookup"
+          TopLeft="169.999997466803,119.999998211861" />
+        <EdgeLayout
+          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[OLE DB Source Output]"
+          TopLeft="228.199997586012,76.5999994784594">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.3999987334013"
+              Start="0,0"
+              End="0,35.8999987334013">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.8999987334013" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[Lookup Match Output]"
+          TopLeft="226.499997682869,161.599998211861">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.399998614192"
+              Start="0,0"
+              End="0,43.899998614192">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.899998614192" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,16.145311807096,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\Lookup">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <TaskHost
     design-time-name="Package\Load_STG_GOOGLE_TRENDS">
     <LayoutInfo>
@@ -1612,121 +1727,6 @@ where [refTable].[Term] = ?</property>
   </TaskHost>
   <PipelineComponentMetadata
     design-time-name="Package\Load_STG_GOOGLE_TRENDS\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <TaskHost
-    design-time-name="Package\Load_FACT_GOOGLE_TRENDS">
-    <LayoutInfo>
-      <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
-        <NodeLayout
-          Size="152,41.6"
-          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source"
-          TopLeft="153.999997705221,34.9999994784594" />
-        <NodeLayout
-          Size="112.8,41.6"
-          Id="Package\Load_FACT_GOOGLE_TRENDS\Lookup"
-          TopLeft="169.999997466803,119.999998211861" />
-        <EdgeLayout
-          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[OLE DB Source Output]"
-          TopLeft="228.199997586012,76.5999994784594">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,43.3999987334013"
-              Start="0,0"
-              End="0,35.8999987334013">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,35.8999987334013" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="171.2,41.6"
-          Id="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination"
-          TopLeft="140.999997898936,212.999996826053" />
-        <EdgeLayout
-          Id="Package\Load_FACT_GOOGLE_TRENDS.Paths[Lookup Match Output]"
-          TopLeft="226.499997682869,161.599998211861">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,51.399998614192"
-              Start="0,0"
-              End="0,43.899998614192">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,43.899998614192" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,16.145311807096,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-      </GraphLayout>
-    </LayoutInfo>
-  </TaskHost>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\Lookup">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:boolean">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string"></Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:int">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\Load_FACT_GOOGLE_TRENDS\OLE DB Destination">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
