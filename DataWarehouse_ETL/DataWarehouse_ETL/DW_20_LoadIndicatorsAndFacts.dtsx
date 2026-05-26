@@ -11,8 +11,8 @@
   DTS:LocaleID="8192"
   DTS:ObjectName="DW_20_LoadIndicatorsAndFacts"
   DTS:PackageType="5"
-  DTS:VersionBuild="32"
-  DTS:VersionGUID="{E4AA8E6F-650F-4EFA-BFA9-EB833239A5F8}">
+  DTS:VersionBuild="49"
+  DTS:VersionGUID="{4CDA9A36-581B-4E3C-B8E8-BD56D8BE1F8E}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -207,6 +207,40 @@
   <DTS:Variables />
   <DTS:Executables>
     <DTS:Executable
+      DTS:refId="Package\Execute SQL Task"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{210F3739-1002-4883-B1D3-81D8F5F10728}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1AEEE221-1199-4F6F-B22F-CBD309EB1AC0}"
+          SQLTask:SqlStatementSource="INSERT INTO DIM_CONFLICT_SOURCE VALUES (5, 'other'),(1, 'acled')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Execute SQL Task 1"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{94693854-F421-4865-A2B6-62DBB61A6DA9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Execute SQL Task 1"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{1AEEE221-1199-4F6F-B22F-CBD309EB1AC0}"
+          SQLTask:SqlStatementSource="insert into DIM_ANCHOR_TERM values(1,'amazon')" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
       DTS:refId="Package\Load_FACT_CONFLICT"
       DTS:CreationName="Microsoft.Pipeline"
       DTS:Description="Data Flow Task"
@@ -220,97 +254,6 @@
         <pipeline
           version="1">
           <components>
-            <component
-              refId="Package\Load_FACT_CONFLICT\Conditional Split"
-              componentClassID="Microsoft.ConditionalSplit"
-              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
-              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
-              name="Conditional Split"
-              usesDispositions="true">
-              <inputs>
-                <input
-                  refId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input]"
-                  description="Input to the Conditional Split Transformation"
-                  name="Conditional Split Input">
-                  <inputColumns>
-                    <inputColumn
-                      refId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input].Columns[year_id]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="year_id"
-                      lineageId="Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]" />
-                  </inputColumns>
-                  <externalMetadataColumns />
-                </input>
-              </inputs>
-              <outputs>
-                <output
-                  refId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[InRange_2019_2023]"
-                  description="Output 1 of the Conditional Split Transformation"
-                  errorOrTruncationOperation="Computation"
-                  errorRowDisposition="FailComponent"
-                  exclusionGroup="1"
-                  name="InRange_2019_2023"
-                  synchronousInputId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input]"
-                  truncationRowDisposition="FailComponent">
-                  <properties>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">[TRIM](#{Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]}) != "" &amp;&amp; (DT_I4)#{Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]} &gt;= 2019 &amp;&amp; (DT_I4)#{Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[year_id]} &lt;= 2023</property>
-                    <property
-                      containsID="true"
-                      dataType="System.String"
-                      description="Specifies the friendly version of the expression. This expression version uses column names."
-                      expressionType="Notify"
-                      name="FriendlyExpression">TRIM(year_id) != "" &amp;&amp; (DT_I4)year_id &gt;= 2019 &amp;&amp; (DT_I4)year_id &lt;= 2023</property>
-                    <property
-                      dataType="System.Int32"
-                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
-                      name="EvaluationOrder">0</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Default Output]"
-                  description="Default Output of the Conditional Split Transformation"
-                  exclusionGroup="1"
-                  name="Conditional Split Default Output"
-                  synchronousInputId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input]">
-                  <properties>
-                    <property
-                      dataType="System.Boolean"
-                      name="IsDefaultOut">true</property>
-                  </properties>
-                  <externalMetadataColumns />
-                </output>
-                <output
-                  refId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Error Output]"
-                  description="Error Output of the Conditional Split Transformation"
-                  exclusionGroup="1"
-                  isErrorOut="true"
-                  name="Conditional Split Error Output"
-                  synchronousInputId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input]">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
-                      dataType="i4"
-                      lineageId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
-                      name="ErrorCode"
-                      specialFlags="1" />
-                    <outputColumn
-                      refId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
-                      dataType="i4"
-                      lineageId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
-                      name="ErrorColumn"
-                      specialFlags="2" />
-                  </outputColumns>
-                  <externalMetadataColumns />
-                </output>
-              </outputs>
-            </component>
             <component
               refId="Package\Load_FACT_CONFLICT\Derived Column"
               componentClassID="Microsoft.DerivedColumn"
@@ -832,6 +775,24 @@ where [refTable].[iso3] = ?</property>
                   exclusionGroup="1"
                   name="Lookup Match Output"
                   synchronousInputId="Package\Load_FACT_CONFLICT\Lookup.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load_FACT_CONFLICT\Lookup.Outputs[Lookup Match Output].Columns[iso3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="3"
+                      lineageId="Package\Load_FACT_CONFLICT\Lookup.Outputs[Lookup Match Output].Columns[iso3]"
+                      name="iso3"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">iso3</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
                   <externalMetadataColumns />
                 </output>
                 <output
@@ -934,18 +895,10 @@ where [refTable].[iso3] = ?</property>
                 <input
                   refId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input]"
                   errorOrTruncationOperation="Insert"
-                  errorRowDisposition="IgnoreFailure"
+                  errorRowDisposition="FailComponent"
                   hasSideEffects="true"
                   name="OLE DB Destination Input">
                   <inputColumns>
-                    <inputColumn
-                      refId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso3]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="3"
-                      cachedName="iso3"
-                      externalMetadataColumnId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso3]"
-                      lineageId="Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[iso3]" />
                     <inputColumn
                       refId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[year_id]"
                       cachedCodepage="1252"
@@ -998,6 +951,14 @@ where [refTable].[iso3] = ?</property>
                       cachedName="conflict_type_id"
                       externalMetadataColumnId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[conflict_type_id]"
                       lineageId="Package\Load_FACT_CONFLICT\Derived Column.Outputs[Derived Column Output].Columns[conflict_type_id]" />
+                    <inputColumn
+                      refId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[iso3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="iso3"
+                      externalMetadataColumnId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[iso3]"
+                      lineageId="Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output].Columns[iso3]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1077,14 +1038,9 @@ where [refTable].[iso3] = ?</property>
               startId="Package\Load_FACT_CONFLICT\Derived Column.Outputs[Derived Column Output]" />
             <path
               refId="Package\Load_FACT_CONFLICT.Paths[Flat File Source Output]"
-              endId="Package\Load_FACT_CONFLICT\Conditional Split.Inputs[Conditional Split Input]"
+              endId="Package\Load_FACT_CONFLICT\Derived Column.Inputs[Derived Column Input]"
               name="Flat File Source Output"
               startId="Package\Load_FACT_CONFLICT\Flat File Source.Outputs[Flat File Source Output]" />
-            <path
-              refId="Package\Load_FACT_CONFLICT.Paths[InRange_2019_2023]"
-              endId="Package\Load_FACT_CONFLICT\Derived Column.Inputs[Derived Column Input]"
-              name="InRange_2019_2023"
-              startId="Package\Load_FACT_CONFLICT\Conditional Split.Outputs[InRange_2019_2023]" />
             <path
               refId="Package\Load_FACT_CONFLICT.Paths[Lookup Match Output]"
               endId="Package\Load_FACT_CONFLICT\OLE DB Destination.Inputs[OLE DB Destination Input]"
@@ -1521,14 +1477,6 @@ where [refTable].[iso3] = ?</property>
                       cachedName="loaded_at"
                       externalMetadataColumnId="Package\Load_STG_WB_INDICATOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[loaded_at]"
                       lineageId="Package\Load_STG_WB_INDICATOR\Flat File Source.Outputs[Flat File Source Output].Columns[loaded_at]" />
-                    <inputColumn
-                      refId="Package\Load_STG_WB_INDICATOR\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[value]"
-                      cachedCodepage="1252"
-                      cachedDataType="str"
-                      cachedLength="50"
-                      cachedName="value"
-                      externalMetadataColumnId="Package\Load_STG_WB_INDICATOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[value_raw]"
-                      lineageId="Package\Load_STG_WB_INDICATOR\Flat File Source.Outputs[Flat File Source Output].Columns[value]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -1561,10 +1509,10 @@ where [refTable].[iso3] = ?</property>
                       scale="7" />
                     <externalMetadataColumn
                       refId="Package\Load_STG_WB_INDICATOR\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[value_raw]"
-                      codePage="1252"
-                      dataType="str"
-                      length="50"
-                      name="value_raw" />
+                      dataType="numeric"
+                      name="value_raw"
+                      precision="18"
+                      scale="6" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -1668,11 +1616,11 @@ where [refTable].[iso3] = ?</property>
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
-      DTS:DTSID="{31E30506-CD80-44A5-9530-5D8E0157E25D}"
+      DTS:DTSID="{4FE0DB8A-5EE9-4635-97B9-71155FB54D1C}"
       DTS:From="Package\Transform_STG_WB_INDICATOR_RAW"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
-      DTS:To="Package\Truncate_FACT_CONFLICT" />
+      DTS:To="Package\Execute SQL Task" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
       DTS:CreationName=""
@@ -1721,6 +1669,22 @@ where [refTable].[iso3] = ?</property>
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 7"
       DTS:To="Package\Transform_STG_WB_INDICATOR_RAW" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 8]"
+      DTS:CreationName=""
+      DTS:DTSID="{F85FDC76-FEEA-4F62-899C-6F7031B41058}"
+      DTS:From="Package\Execute SQL Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 8"
+      DTS:To="Package\Execute SQL Task 1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 9]"
+      DTS:CreationName=""
+      DTS:DTSID="{32724BB2-53FC-4372-B094-644C590D4BA1}"
+      DTS:From="Package\Execute SQL Task 1"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 9"
+      DTS:To="Package\Truncate_FACT_CONFLICT" />
   </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
@@ -1737,11 +1701,11 @@ where [refTable].[iso3] = ?</property>
         <NodeLayout
           Size="192,41.6"
           Id="Package\Load_FACT_CONFLICT"
-          TopLeft="50.5555527933219,342.911108887262" />
+          TopLeft="45.7936482915961,513.768250556286" />
         <NodeLayout
           Size="193.6,41.6"
           Id="Package\Load_FACT_ECONOMY"
-          TopLeft="281.388873514478,343.777775547902" />
+          TopLeft="311.150776650264,317.777775728703" />
         <NodeLayout
           Size="214.4,41.6"
           Id="Package\Load_FACT_GOVERNANCE"
@@ -1759,9 +1723,13 @@ where [refTable].[iso3] = ?</property>
           Id="Package\Load_STG_WB_INDICATOR"
           TopLeft="36.0185165505534,89.2666660459173" />
         <NodeLayout
+          Size="268,41.6"
+          Id="Package\Transform_STG_WB_INDICATOR_RAW"
+          TopLeft="6.48148112734893,157.925924988441" />
+        <NodeLayout
           Size="210.4,41.6"
           Id="Package\Truncate_FACT_CONFLICT"
-          TopLeft="39.1666645266944,245.844442895584" />
+          TopLeft="14.5238087302635,390.206346653614" />
         <NodeLayout
           Size="232,41.6"
           Id="Package\Truncate_STG_WB_INDICATOR"
@@ -1790,18 +1758,30 @@ where [refTable].[iso3] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="145.461108660008,287.444442895584">
+          TopLeft="119.723808730263,431.806346653614">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,55.4666659916774"
+              EndConnector="-8.59682710533404,81.9619039026715"
               Start="0,0"
-              End="0,47.9666659916774">
+              End="-8.59682710533404,74.4619039026715">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,47.9666659916774" />
+                    End="0,44.7707196776227" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44.7707196776227"
+                    Point2="0,48.7707196776227"
+                    Point3="-4,48.7707196776227" />
+                  <mssgle:LineSegment
+                    End="-4.59682710533404,48.7707196776227" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-4.59682710533404,48.7707196776227"
+                    Point2="-8.59682710533404,48.7707196776227"
+                    Point3="-8.59682710533404,52.7707196776227" />
+                  <mssgle:LineSegment
+                    End="-8.59682710533404,74.4619039026715" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1812,18 +1792,30 @@ where [refTable].[iso3] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="242.555552793321,364.144442217582">
+          TopLeft="172.460314958263,513.768250556286">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="38.8333207211568,0"
+              EndConnector="204.557128358668,-154.390474827583"
               Start="0,0"
-              End="31.3333207211568,0">
+              End="204.557128358668,-146.890474827583">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="31.3333207211568,0" />
+                    End="0,-73.2017479339411" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-73.2017479339411"
+                    Point2="0,-77.2017479339411"
+                    Point3="4,-77.2017479339411" />
+                  <mssgle:LineSegment
+                    End="200.557128358668,-77.2017479339411" />
+                  <mssgle:CubicBezierSegment
+                    Point1="200.557128358668,-77.2017479339411"
+                    Point2="204.557128358668,-77.2017479339411"
+                    Point3="204.557128358668,-81.2017479339411" />
+                  <mssgle:LineSegment
+                    End="204.557128358668,-146.890474827583" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1834,30 +1826,30 @@ where [refTable].[iso3] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 4]"
-          TopLeft="378.188873514478,385.377775547902">
+          TopLeft="438.884109983597,359.377775728703">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="103.291659711756,29.8999995027979"
+              EndConnector="76.9964232426375,55.8999993219974"
               Start="0,0"
-              End="103.291659711756,22.3999995027979">
+              End="76.9964232426375,48.3999993219974">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,13.8071108149996" />
+                    End="0,18.6349177582514" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,13.8071108149996"
-                    Point2="0,17.8071108149996"
-                    Point3="4,17.8071108149996" />
+                    Point1="0,18.6349177582514"
+                    Point2="0,22.6349177582514"
+                    Point3="4,22.6349177582514" />
                   <mssgle:LineSegment
-                    End="99.291659711756,17.8071108149996" />
+                    End="72.9964232426375,22.6349177582514" />
                   <mssgle:CubicBezierSegment
-                    Point1="99.291659711756,17.8071108149996"
-                    Point2="103.291659711756,17.8071108149996"
-                    Point3="103.291659711756,21.8071108149996" />
+                    Point1="72.9964232426375,22.6349177582514"
+                    Point2="76.9964232426375,22.6349177582514"
+                    Point3="76.9964232426375,26.6349177582514" />
                   <mssgle:LineSegment
-                    End="103.291659711756,22.3999995027979" />
+                    End="76.9964232426375,48.3999993219974" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1934,10 +1926,6 @@ where [refTable].[iso3] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="268,41.6"
-          Id="Package\Transform_STG_WB_INDICATOR_RAW"
-          TopLeft="6.48148112734893,157.925924988441" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 7]"
           TopLeft="141.849998838951,130.866666045917">
@@ -1960,20 +1948,108 @@ where [refTable].[iso3] = ?</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="164.8,41.6"
+          Id="Package\Execute SQL Task"
+          TopLeft="90.833328370419,227.247617472931" />
+        <NodeLayout
+          Size="173.6,41.6"
+          Id="Package\Execute SQL Task 1"
+          TopLeft="78.8095195035613,289.895236084906" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="142.424072827022,199.525924988441">
+          TopLeft="140.481481127349,199.525924988441">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,46.3185179071439"
+              EndConnector="32.7518472430701,27.7216924844896"
               Start="0,0"
-              End="0,38.8185179071439">
+              End="32.7518472430701,20.2216924844896">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,38.8185179071439" />
+                    End="0,9.8608462422448" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,9.8608462422448"
+                    Point2="0,13.8608462422448"
+                    Point3="4,13.8608462422448" />
+                  <mssgle:LineSegment
+                    End="28.7518472430701,13.8608462422448" />
+                  <mssgle:CubicBezierSegment
+                    Point1="28.7518472430701,13.8608462422448"
+                    Point2="32.7518472430701,13.8608462422448"
+                    Point3="32.7518472430701,17.8608462422448" />
+                  <mssgle:LineSegment
+                    End="32.7518472430701,20.2216924844896" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 8]"
+          TopLeft="255.633328370419,248.047617472931">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-3.22380886685772,62.6476186119753"
+              Start="0,0"
+              End="4.27619113314228,62.6476186119753">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="18.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="18.5,0"
+                    Point2="22.5,0"
+                    Point3="22.5,4" />
+                  <mssgle:LineSegment
+                    End="22.5,58.6476186119753" />
+                  <mssgle:CubicBezierSegment
+                    Point1="22.5,58.6476186119753"
+                    Point2="22.5,62.6476186119753"
+                    Point3="18.5,62.6476186119753" />
+                  <mssgle:LineSegment
+                    End="4.27619113314228,62.6476186119753" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 9]"
+          TopLeft="165.609519503561,331.495236084906">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-45.8857107732978,58.7111105687082"
+              Start="0,0"
+              End="-45.8857107732978,51.2111105687082">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.3555552843541" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,25.3555552843541"
+                    Point2="0,29.3555552843541"
+                    Point3="-4,29.3555552843541" />
+                  <mssgle:LineSegment
+                    End="-41.8857107732978,29.3555552843541" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-41.8857107732978,29.3555552843541"
+                    Point2="-45.8857107732978,29.3555552843541"
+                    Point3="-45.8857107732978,33.3555552843541" />
+                  <mssgle:LineSegment
+                    End="-45.8857107732978,51.2111105687082" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1989,7 +2065,7 @@ where [refTable].[iso3] = ?</property>
     design-time-name="Package\Load_FACT_CONFLICT">
     <LayoutInfo>
       <GraphLayout
-        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="152.8,41.6"
           Id="Package\Load_FACT_CONFLICT\Derived Column"
@@ -2006,10 +2082,6 @@ where [refTable].[iso3] = ?</property>
           Size="112.8,41.6"
           Id="Package\Load_FACT_CONFLICT\Lookup"
           TopLeft="398.999994054437,203.999996960163" />
-        <NodeLayout
-          Size="153.6,41.6"
-          Id="Package\Load_FACT_CONFLICT\Conditional Split"
-          TopLeft="136.999997958541,114.999998286366" />
         <EdgeLayout
           Id="Package\Load_FACT_CONFLICT.Paths[Lookup Match Output]"
           TopLeft="455.399994054437,245.599996960163">
@@ -2047,54 +2119,6 @@ where [refTable].[iso3] = ?</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\Load_FACT_CONFLICT.Paths[InRange_2019_2023]"
-          TopLeft="216.099997921288,156.599998286366">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,43.3999987334013"
-              Start="0,0"
-              End="0,35.8999987334013">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,35.8999987334013" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-46.35923828125,12.2063470229507,92.7184765625,11.4873046875"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\Load_FACT_CONFLICT.Paths[Flat File Source Output]"
-          TopLeft="213.199997958541,64.5999996572733">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,50.3999986290932"
-              Start="0,0"
-              End="0,42.8999986290932">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,42.8999986290932" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
           Id="Package\Load_FACT_CONFLICT.Paths[Derived Column Output]"
           TopLeft="294.799997884035,222.799996989966">
           <EdgeLayout.Curve>
@@ -2113,9 +2137,29 @@ where [refTable].[iso3] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load_FACT_CONFLICT.Paths[Flat File Source Output]"
+          TopLeft="215.499997921288,64.5999996572733">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,135.399997362495"
+              Start="0,0"
+              End="0,127.899997362495">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,127.899997362495" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -2140,7 +2184,7 @@ where [refTable].[iso3] = ?</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -2150,7 +2194,7 @@ where [refTable].[iso3] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
